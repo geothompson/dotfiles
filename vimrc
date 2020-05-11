@@ -23,11 +23,73 @@
 "    -> Misc
 "    -> Helper functions
 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"personal changes
+
+
+
 "
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and
+" initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" " alternatively, pass a path where Vundle should
+" install plugins
+" "call vundle#begin('~/some/path/here')
+"
+" " let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'git@github.com:Valloric/YouCompleteMe.git'
+Plugin 'git@github.com:kien/ctrlp.vim.git'
+Plugin 'git@github.com:rking/ag.vim.git'
+Plugin 'morhetz/gruvbox'
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdtree'
+
+" " plugin from
+" http://vim-scripts.org/vim/scripts.html
+" " Plugin 'L9'
+" " Git plugin not hosted on GitHub
+" Plugin 'git://git.wincent.com/command-t.git'
+" " git repos on your local machine (i.e. when
+" working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+" " The sparkup vim script is in a subdirectory of
+" this repo called vim.
+" " Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" " Install L9 and avoid a Naming conflict if you've
+" already installed a
+" " different version somewhere else.
+" " Plugin 'ascenator/L9', {'name': 'newL9'}
+"
+" " All of your Plugins must be added before the
+" following line
+ call vundle#end()            " required
+ filetype plugin indent on    " required
+"  Put your non-Plugin stuff after this line"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd VimEnter * set t_ut=
+
+
+
+
+
+
+
+
+
+
+
+
+
+"nerdtree
+let NERDTreeMinimalUI = 1
+
+
 "prevents truncated yanks, deletes, ect....
-set viminfo='20,<1000,s1000
+set viminfo='20,<1000,s100
 
 filetype plugin on
 
@@ -43,6 +105,21 @@ set formatoptions-=w
 set formatoptions+=j
 set formatoptions+=1
 set formatoptions+=M
+
+        
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
+nnoremap <leader>u :UndotreeShow<CR>
+nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <Leader>ps :Rg<SPACE>
+nnoremap <silent> <Leader>+ :vertical resize +5<CR>
+nnoremap <silent> <Leader>- :vertical resize -5<CR>
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+
 
 
 
@@ -95,7 +172,7 @@ set ruler
 " Height of the command bar
 set cmdheight=1
 
-" A buffer becomes hidden when it is abandoned
+
 set hid
 
 " Configure backspace so it acts as it should act
@@ -153,7 +230,9 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme darkblue  
+    colorscheme gruvbox
+    
+
 catch
 endtry
 
