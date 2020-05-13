@@ -23,29 +23,32 @@
 "    -> Misc
 "    -> Helper functions
 "
-
+" Provides tab-completion for all file-related tasks
+set path+=**
+" Display all mathing files when tab complete
+set wildmenu
 
 
 "
 set nocompatible              " be iMproved, required
-filetype off                  " required
+"filetype off                  " required
 
 " set the runtime path to include Vundle and
 " initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
 " " alternatively, pass a path where Vundle should
 " install plugins
 " "call vundle#begin('~/some/path/here')
 "
 " " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'git@github.com:Valloric/YouCompleteMe.git'
-Plugin 'git@github.com:kien/ctrlp.vim.git'
-Plugin 'git@github.com:rking/ag.vim.git'
-Plugin 'morhetz/gruvbox'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdtree'
+"Plugin 'VundleVim/Vundle.vim'
+"Plugin 'git@github.com:Valloric/YouCompleteMe.git'
+"Plugin 'git@github.com:kien/ctrlp.vim.git'
+"Plugin 'git@github.com:rking/ag.vim.git'
+"Plugin 'morhetz/gruvbox'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'scrooloose/nerdtree'
 
 " " plugin from
 " http://vim-scripts.org/vim/scripts.html
@@ -66,8 +69,8 @@ Plugin 'scrooloose/nerdtree'
 "
 " " All of your Plugins must be added before the
 " following line
- call vundle#end()            " required
- filetype plugin indent on    " required
+ "call vundle#end()            " required
+ "filetype plugin indent on    " required
 "  Put your non-Plugin stuff after this line"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 autocmd VimEnter * set t_ut=
@@ -85,7 +88,7 @@ autocmd VimEnter * set t_ut=
 
 
 "nerdtree
-let NERDTreeMinimalUI = 1
+"let NERDTreeMinimalUI = 1
 
 
 "prevents truncated yanks, deletes, ect....
@@ -107,25 +110,25 @@ set formatoptions+=1
 set formatoptions+=M
 
         
-nnoremap <leader>h :wincmd h<CR>
-nnoremap <leader>j :wincmd j<CR>
-nnoremap <leader>k :wincmd k<CR>
-nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
-nnoremap <Leader>ps :Rg<SPACE>
-nnoremap <silent> <Leader>+ :vertical resize +5<CR>
-nnoremap <silent> <Leader>- :vertical resize -5<CR>
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+"nnoremap <leader>h :wincmd h<CR>
+"nnoremap <leader>j :wincmd j<CR>
+"nnoremap <leader>k :wincmd k<CR>
+"nnoremap <leader>l :wincmd l<CR>
+"nnoremap <leader>u :UndotreeShow<CR>
+"nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+"nnoremap <Leader>ps :Rg<SPACE>
+"nnoremap <silent> <Leader>+ :vertical resize +5<CR>
+"nnoremap <silent> <Leader>- :vertical resize -5<CR>
+"vnoremap J :m '>+1<CR>gv=gv
+"vnoremap K :m '<-2<CR>gv=gv
 
 
 
 
 
 " Enable filetype plugins
-filetype plugin on
-filetype indent on
+"filetype plugin on
+"filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread

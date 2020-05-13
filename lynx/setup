@@ -7,6 +7,4 @@ if [ -z "$(which lynx)" ]; then
 fi
 
 mkdir ~/ .config/ 2>/dev/null
-
-ln -sf $PWD/lynxrc $HOME/.lynxrc
-ls -l $HOME/.lynxrc
+ln -sf "$PWD" "$HOME/.config/lynx"

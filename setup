@@ -1,8 +1,11 @@
 #!/bin/bash
 
-ln -sf $PWD/config.bash ~/.bash_aliases
+
+ln -sf $PWD/bash_aliases ~/.bash_aliases
 ls -l ~/.bash_aliases
 
+ln -sf $PWD/bashrc ~/.bashrc
+ls -l ~/.bashrc
 
 ln -sf $PWD/vimrc $HOME/.vimrc
 ls -l $HOME/.vimrc

@@ -45,30 +45,21 @@ txtrst='\e[0m'    # Text Reset
 
 
 
-# aliases
-alias 'g'=’git’
-alias st=’git status’
-alias com=’git commit -m’
-alias clone=’git clone’
-alias sth=’git stash’
-alias lg=’git log’
-alias u=’git add 
-alias all=’git add .’
-
 
 unalias -a
 alias '?'=duck
 alias ??=google
 alias ll="ls -la"
 alias vi=vim
-export PATH=$HOME/Repos/gitlab.com/SnappleSauce/dotfiles/scripts:$PATH
+export PATH=/usr/bin/lynx:$PATH
+export PATH=$HOME/repos/gitlab.com/snapplesauce/dotfiles/scripts:$PATH
 
 
 
 
 
 
-prompt_command () {
+prompt_command() {
     if [ $? -eq 0 ]; then # set an error string for the prompt, if applicable
         ERRPROMPT=" "
     else
