@@ -1,8 +1,6 @@
 #!/bin/bash
 
 
-ln -sf $PWD/bash_aliases ~/.bash_aliases
-ls -l ~/.bash_aliases
 
 ln -sf $PWD/bashrc ~/.bashrc
 ls -l ~/.bashrc
@@ -10,5 +8,6 @@ ls -l ~/.bashrc
 ln -sf $PWD/vimrc $HOME/.vimrc
 ls -l $HOME/.vimrc
 
-ln -sf $PWD/tmux.conf $HOME/.tmux.conf
+
+ln -sf $PWD/scripts/tmux.conf $HOME/.tmux.conf
 ls -l $HOME/.tmux.conf

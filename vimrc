@@ -24,31 +24,30 @@
 "    -> Helper functions
 "
 " Provides tab-completion for all file-related tasks
-set path+=**
 " Display all mathing files when tab complete
-set wildmenu
 
 
 "
 set nocompatible              " be iMproved, required
-"filetype off                  " required
+filetype off                  " required
 
 " set the runtime path to include Vundle and
 " initialize
-"set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 " " alternatively, pass a path where Vundle should
 " install plugins
 " "call vundle#begin('~/some/path/here')
 "
 " " let Vundle manage Vundle, required
-"Plugin 'VundleVim/Vundle.vim'
-"Plugin 'git@github.com:Valloric/YouCompleteMe.git'
-"Plugin 'git@github.com:kien/ctrlp.vim.git'
-"Plugin 'git@github.com:rking/ag.vim.git'
-"Plugin 'morhetz/gruvbox'
-"Plugin 'tpope/vim-fugitive'
-"Plugin 'scrooloose/nerdtree'
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'git@github.com:Valloric/YouCompleteMe.git'
+Plugin 'git@github.com:kien/ctrlp.vim.git'
+Plugin 'git@github.com:rking/ag.vim.git'
+Plugin 'morhetz/gruvbox'
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdtree'
 
 " " plugin from
 " http://vim-scripts.org/vim/scripts.html
@@ -69,8 +68,8 @@ set nocompatible              " be iMproved, required
 "
 " " All of your Plugins must be added before the
 " following line
- "call vundle#end()            " required
- "filetype plugin indent on    " required
+call vundle#end()            " required
+filetype plugin indent on    " required
 "  Put your non-Plugin stuff after this line"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 autocmd VimEnter * set t_ut=

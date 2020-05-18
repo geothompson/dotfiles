@@ -40,8 +40,8 @@ bakwht='\e[47m'   # White
 txtrst='\e[0m'    # Text Reset
 
 
-
-
+# turn vim mode on 
+set -o vi
 
 
 
@@ -51,6 +51,7 @@ alias '?'=duck
 alias ??=google
 alias ll="ls -la"
 alias vi=vim
+alias l.='ls -d .* --color=tty'
 export PATH=/usr/bin/lynx:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesauce/dotfiles/scripts:$PATH
 
