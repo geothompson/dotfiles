@@ -44,14 +44,22 @@ txtrst='\e[0m'    # Text Reset
 set -o vi
 
 
-
+set -o noclobber
+shopt -s expand_aliases
+shopt -s globstar
+shopt -s dotglob
 
 unalias -a
+alias more='less'
+alias less='less -R'
 alias '?'=duck
 alias ??=google
+alias ls='ls --color=tty'
 alias ll="ls -la"
 alias vi=vim
 alias l.='ls -d .* --color=tty'
+alias c='clear'
+alias mv='mv -n'
 export PATH=/usr/bin/lynx:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesauce/dotfiles/scripts:$PATH
 
@@ -111,4 +119,6 @@ chkload () { #gets the current 1m avg CPU load
     fi
     echo $CURRLOAD
 }
+
+LS_COLORS=$LS_COLORS:'di=0;35:' ; export LS_COLORS
 
