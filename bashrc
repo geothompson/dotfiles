@@ -54,7 +54,7 @@ export PATH=$HOME/repos/gitlab.com/snapplesacue/dotfiles/scripts/:$PATH
 export PATH=$HOME/scripts:$PATH
 
 
-duc() {
+d() {
 lynx -cfg ~/scripts/lynx/lynx.cfg -lss ~/scripts/lynx/lynx.lss "duckduckgo.com/lite?q=$*"
 
 

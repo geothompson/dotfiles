@@ -47,6 +47,7 @@ Plugin 'git@github.com:kien/ctrlp.vim.git'
 Plugin 'git@github.com:rking/ag.vim.git'
 Plugin 'git@github.com:iamcco/markdown-preview.nvim.git'
 Plugin 'git@github.com:gabrielelana/vim-markdown.git'
+Plugin 'git@github.com:airblade/vim-gitgutter.git'
 Plugin 'morhetz/gruvbox'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
@@ -75,7 +76,20 @@ set path+=**
 set wildmenu
 
 
+" no arrow keys (vi muscle memory)
 
+noremap <up> :echoerr "Umm, use k instead"<CR>
+noremap <down> :echoerr "Umm, use j instead"<CR>
+noremap <left> :echoerr "Umm, use h instead"<CR>
+noremap <right> :echoerr "Umm, use l instead"<CR>
+inoremap <up> <NOP>
+inoremap <down> <NOP>
+inoremap <left> <NOP>
+inoremap <right> <NOP>
+
+" start at last place you were editing
+
+ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
 
@@ -106,11 +120,29 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Sets how many lines of history VIM has to remember
 set nonu
 set relativenumber
-set history=500
+set history=100
 set formatoptions-=w
-set formatoptions+=j
 set formatoptions+=1
 set formatoptions+=M
+set formatoptions+=l   " long lines not broken in insert mode
+set formatoptions-=b   " don't use broken 'vi-compatible auto-wrapping'
+set formatoptions-=v   " don't use broken 'vi-compatible auto-wrapping'
+set formatoptions+=j   " delete comment prefix when joining
+set formatoptions-=a   " disable auto-formatting of paragraph changes
+set formatoptions-=r   " don't auto-insert comment leader on enter in insert
+set formatoptions-=o   " don't auto-insert comment leader on o/O in normal
+set formatoptions+=c   " autowrap comments using textwidth with leader
+set formatoptions-=t   " don't auto-wrap text using text width
+
+
+
+
+
+
+
+
+
+
 
         
 "nnoremap <leader>h :wincmd h<CR>
@@ -290,6 +322,9 @@ set si "Smart indent
 set wrap "Wrap lines
 set textwidth=73
 set noswapfile
+set nohlsearch
+
+
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
