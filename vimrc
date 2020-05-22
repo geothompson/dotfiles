@@ -46,6 +46,7 @@ Plugin 'git@github.com:Valloric/YouCompleteMe.git'
 Plugin 'git@github.com:kien/ctrlp.vim.git'
 Plugin 'git@github.com:rking/ag.vim.git'
 Plugin 'git@github.com:iamcco/markdown-preview.nvim.git'
+Plugin 'git@github.com:gabrielelana/vim-markdown.git'
 Plugin 'morhetz/gruvbox'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
@@ -341,7 +342,7 @@ au TabLeave * let g:lasttab = tabpagenr()
 map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+"map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers 
 try

@@ -49,22 +49,16 @@ shopt -s expand_aliases
 shopt -s globstar
 shopt -s dotglob
 
-unalias -a
-alias more='less'
-alias less='less -R'
-alias '?'=duck
-alias ??=google
-alias ls='ls --color=tty'
-alias ll="ls -la"
-alias vi=vim
-alias l.='ls -d .* --color=tty'
-alias c='clear'
-alias mv='mv -n'
 export PATH=/usr/bin/lynx:$PATH
-export PATH=$HOME/repos/gitlab.com/snapplesauce/dotfiles/scripts:$PATH
+export PATH=$HOME/repos/gitlab.com/snapplesacue/dotfiles/scripts/:$PATH
+export PATH=$HOME/scripts:$PATH
 
 
+duc() {
+lynx -cfg ~/scripts/lynx/lynx.cfg -lss ~/scripts/lynx/lynx.lss "duckduckgo.com/lite?q=$*"
 
+
+}
 
 
 
@@ -119,6 +113,12 @@ chkload () { #gets the current 1m avg CPU load
     fi
     echo $CURRLOAD
 }
+
+if [ -f $HOME/.bash_aliases ]
+then
+  . $HOME/.bash_aliases
+fi
+
 
 LS_COLORS=$LS_COLORS:'di=0;35:' ; export LS_COLORS
 
