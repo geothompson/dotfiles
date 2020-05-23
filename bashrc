@@ -56,10 +56,8 @@ export PATH=$HOME/scripts:$PATH
 
 d() {
 lynx -cfg ~/scripts/lynx/lynx.cfg -lss ~/scripts/lynx/lynx.lss "duckduckgo.com/lite?q=$*"
-
-
 }
-
+export -f d
 
 
 prompt_command() {

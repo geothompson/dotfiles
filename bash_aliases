@@ -1,7 +1,7 @@
 unalias -a
 alias more='less'
 alias less='less -R'
-alias '?'=duck
+alias ?='d'
 alias ??=googl
 alias ls='ls -h --color=auto'
 alias ll="ls -la"

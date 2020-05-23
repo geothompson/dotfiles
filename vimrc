@@ -1,33 +1,11 @@
-"maintainer: 
-"       Amir Salihefendic — @amix3k
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Sections:
-"    -> General
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Status line
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"
-" Provides tab-completion for all file-related tasks
-" Display all mathing files when tab complete
+"                  Georges vimrc
 
 
-"
+" Use :so % to reload
+
+
+"Plugins using vundle(should switch to vim-plug):
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -48,6 +26,7 @@ Plugin 'git@github.com:rking/ag.vim.git'
 Plugin 'git@github.com:iamcco/markdown-preview.nvim.git'
 Plugin 'git@github.com:gabrielelana/vim-markdown.git'
 Plugin 'git@github.com:airblade/vim-gitgutter.git'
+Plugin 'git@github.com:maxbrunsfeld/vim-yankstack.git'
 Plugin 'morhetz/gruvbox'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
@@ -137,10 +116,13 @@ set formatoptions-=t   " don't auto-wrap text using text width
 
 
 
-
-
-
-
+" fix meta-keys which gemerate <ESC>a .. <ESC>z
+let c='a'
+while c <= 'z'
+    exec "set <M-".toupper(c).">=\e".c
+    exec "imap \e".c." <M-".toupper(c).">"
+    let c = nr2char(1+char2nr(c))
+endw 
 
 
 
@@ -255,7 +237,6 @@ endif
 " Add a bit extra margin to the left
 set foldcolumn=1
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -273,9 +254,7 @@ try
 
 catch
 endtry
-
 set background=dark
-
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
@@ -283,7 +262,6 @@ if has("gui_running")
     set t_Co=256
     set guitablabel=%M\ %t
 endif
-
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
