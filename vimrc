@@ -116,14 +116,13 @@ set formatoptions-=t   " don't auto-wrap text using text width
 " keep cursor in middle of screen
 set scrolloff=999
 
-
 " fix meta-keys which gemerate <ESC>a .. <ESC>z
-let c='a'
-while c <= 'z'
-    exec "set <M-".toupper(c).">=\e".c
-    exec "imap \e".c." <M-".toupper(c).">"
-    let c = nr2char(1+char2nr(c))
-endw 
+"let c='a'
+"while c <= 'z'
+"    exec "set <M-".toupper(c).">=\e".c
+"    exec "imap \e".c." <M-".toupper(c).">"
+"    let c = nr2char(1+char2nr(c))
+"endw 
 
 
         
@@ -286,8 +285,6 @@ set expandtab
 
 " Be smart when using tabs ;)
 set smarttab
-
-
 " 1 tab == 4 spaces
 set shiftwidth=2
 set tabstop=2
