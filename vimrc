@@ -1,46 +1,39 @@
 "                  Georges vimrc
 
 
+"md ~\vimfiles\autoload
+"$uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+"(New-Object Net.WebClient).DownloadFile(
+"  $uri,
+"  $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(
+    "~\vimfiles\autoload\plug.vim"
+"  )
+")
+
+
 " Use :so % to reload
 
+call plug#begin('~/.vim/plugged')
 
-"Plugins using vundle(should switch to vim-plug):
+
+Plug 'git@github.com:Valloric/YouCompleteMe.git'
+Plug 'git@github.com:kien/ctrlp.vim.git'
+Plug 'git@github.com:rking/ag.vim.git'
+Plug 'git@github.com:iamcco/markdown-preview.nvim.git'
+Plug 'git@github.com:gabrielelana/vim-markdown.git'
+Plug 'git@github.com:airblade/vim-gitgutter.git'
+Plug 'git@github.com:maxbrunsfeld/vim-yankstack.git'
+Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdtree'
+
+
+call plug#end()
+
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and
-" initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" " alternatively, pass a path where Vundle should
-" install plugins
-" "call vundle#begin('~/some/path/here')
-"
-" " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'git@github.com:Valloric/YouCompleteMe.git'
-Plugin 'git@github.com:kien/ctrlp.vim.git'
-Plugin 'git@github.com:rking/ag.vim.git'
-Plugin 'git@github.com:iamcco/markdown-preview.nvim.git'
-Plugin 'git@github.com:gabrielelana/vim-markdown.git'
-Plugin 'git@github.com:airblade/vim-gitgutter.git'
-Plugin 'git@github.com:maxbrunsfeld/vim-yankstack.git'
-Plugin 'morhetz/gruvbox'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdtree'
-
-
-
-
-
-
-" " All of your Plugins must be added before the
-" following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-"  Put your non-Plugin stuff after this line"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
@@ -86,8 +79,6 @@ nmap <C-p> <Plug>MarkdownPreviewToggle
 let NERDTreeMinimalUI = 1
 
 
-"prevents truncated yanks, deletes, ect....
-set viminfo='20,<1000,s100
 
 filetype plugin on
 
@@ -113,38 +104,16 @@ set formatoptions-=o   " don't auto-insert comment leader on o/O in normal
 set formatoptions+=c   " autowrap comments using textwidth with leader
 set formatoptions-=t   " don't auto-wrap text using text width
 
+
+"prevents truncated yanks, deletes, ect....
+set viminfo='20,<1000,s100
+
 " keep cursor in middle of screen
 set scrolloff=999
 
-" fix meta-keys which gemerate <ESC>a .. <ESC>z
-"let c='a'
-"while c <= 'z'
-"    exec "set <M-".toupper(c).">=\e".c
-"    exec "imap \e".c." <M-".toupper(c).">"
-"    let c = nr2char(1+char2nr(c))
-"endw 
-
-
+"prevents truncated yanks, deletes, ect....
+set viminfo='20,<1000,s100
         
-"nnoremap <leader>h :wincmd h<CR>
-"nnoremap <leader>j :wincmd j<CR>
-"nnoremap <leader>k :wincmd k<CR>
-"nnoremap <leader>l :wincmd l<CR>
-"nnoremap <leader>u :UndotreeShow<CR>
-"nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
-"nnoremap <Leader>ps :Rg<SPACE>
-"nnoremap <silent> <Leader>+ :vertical resize +5<CR>
-"nnoremap <silent> <Leader>- :vertical resize -5<CR>
-"vnoremap J :m '>+1<CR>gv=gv
-"vnoremap K :m '<-2<CR>gv=gv
-
-
-
-
-
-" Enable filetype plugins
-"filetype plugin on
-"filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -162,6 +131,8 @@ nmap <leader>w :w!<cr>
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 
+map <silent> <leader><cr> :noh<cr>  
+map <leader>% :so %dows
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -298,7 +269,7 @@ set si "Smart indent
 set wrap "Wrap lines
 set textwidth=73
 set noswapfile
-set nohlsearch
+"set nohlsearch
 
 
 """"""""""""""""""""""""""""""
@@ -317,10 +288,7 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 map <space> /
 map <C-space> ?
 
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
-
-" Smart way to move between windows
+" Disable highlight when <leader><cr> is pressed(<cr> == enter)
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
@@ -365,7 +333,6 @@ endtry
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
@@ -407,7 +374,6 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -421,7 +387,7 @@ map <leader>sa zg
 map <leader>s? z=
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
@@ -489,3 +455,42 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
+
+
+
+
+
+
+"nnoremap <leader>h :wincmd h<CR>
+"nnoremap <leader>j :wincmd j<CR>
+"remap <A-j> :m .+1<CR>==
+"nnoremap <A-k> :m .-2<CR>==
+"inoremap <A-j> <Esc>:m .+1<CR>==gi
+"inoremap <A-k> <Esc>:m .-2<CR>==gi
+"vnoremap <A-j> :m '>+1<CR>gv=gv
+"vnoremap <A-k> :m '<-2<CR>gv=gv
+"nnoremap <leader>k :wincmd k<CR>
+"nnoremap <leader>l :wincmd l<CR>
+"nnoremap <leader>u :UndotreeShow<CR>
+"nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+"nnoremap <Leader>ps :Rg<SPACE>
+"nnoremap <silent> <Leader>+ :vertical resize +5<CR>
+"nnoremap <silent> <Leader>- :vertical resize -5<CR>
+"vnoremap J :m '>+1<CR>gv=gv
+"vnoremap K :m '<-2<CR>gv=gv
+
+
+
+
+
+
+
+
+
+"nnoremap <A-j> :m .+1<CR>==
+"nnoremap <A-k> :m .-2<CR>==
+"inoremap <A-j> <Esc>:m .+1<CR>==gi
+"inoremap <A-k> <Esc>:m .-2<CR>==gi
+"vnoremap <A-j> :m '>+1<CR>gv=gv
+"vnoremap <A-k> :m '<-2<CR>gv=gv
+
