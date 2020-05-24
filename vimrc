@@ -1,22 +1,30 @@
 "                  Georges vimrc
+" auto-installs vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl .flo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 
 
-call plug#begin('~/.vim/plugged')
-
-
-Plug 'git@github.com:Valloric/YouCompleteMe.git'
-Plug 'git@github.com:kien/ctrlp.vim.git'
-Plug 'git@github.com:rking/ag.vim.git'
-Plug 'git@github.com:iamcco/markdown-preview.nvim.git'
-Plug 'git@github.com:gabrielelana/vim-markdown.git'
-Plug 'git@github.com:airblade/vim-gitgutter.git'
-Plug 'git@github.com:maxbrunsfeld/vim-yankstack.git'
-Plug 'morhetz/gruvbox'
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdtree'
-
-
-call plug#end()
+if filereadable(expand("~/.vim/autoload/plug.vim")) 
+  call plug#begin('~/.vim/plugged')
+  Plug 'git@github.com:Valloric/YouCompleteMe.git'
+  Plug 'git@github.com:kien/ctrlp.vim.git'
+  Plug 'git@github.com:rking/ag.vim.git'
+  Plug 'git@github.com:iamcco/markdown-preview.nvim.git'
+  Plug 'git@github.com:gabrielelana/vim-markdown.git'
+  Plug 'git@github.com:airblade/vim-gitgutter.git'
+  Plug 'git@github.com:maxbrunsfeld/vim-yankstack.git'
+  Plug 'morhetz/gruvbox'
+  Plug 'tpope/vim-fugitive'
+  Plug 'scrooloose/nerdtree'
+  Plug 'preservim/nerdcommenter'
+  call plug#end()
+  let g:go_fmt_fail_silently = 0
+  let g:go_fmt_command = "goimports"
+  let g:go_fmt_autosave = 1
+endif
 
 
 set nocompatible              " be iMproved, required
@@ -24,7 +32,7 @@ filetype off                  " required
 
 
 
-
+" fixes everything being highlighted after scrolling" fixes everything being highlighted after scrolling
 autocmd VimEnter * set t_ut=
 
 
@@ -49,7 +57,11 @@ inoremap <right> <NOP>
 
 " start at last place you were editing
 
- au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" make vim faster
+set timeoutlen=1000
+set ttimeoutlen=0
 
 
 
@@ -58,8 +70,6 @@ inoremap <right> <NOP>
 nmap <C-s> <Plug>MarkdownPreview
 nmap <M-s> <Plug>MarkdownPreviewStop
 nmap <C-p> <Plug>MarkdownPreviewToggle
-
-
 
 
 
@@ -212,7 +222,9 @@ try
 
 catch
 endtry
+
 set background=dark
+
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
@@ -220,6 +232,7 @@ if has("gui_running")
     set t_Co=256
     set guitablabel=%M\ %t
 endif
+
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
@@ -270,11 +283,8 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
+ "=> Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <C-space> ?
 
 " Disable highlight when <leader><cr> is pressed(<cr> == enter)
 map <C-j> <C-W>j
