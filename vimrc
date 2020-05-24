@@ -1,18 +1,6 @@
 "                  Georges vimrc
 
 
-"md ~\vimfiles\autoload
-"$uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-"(New-Object Net.WebClient).DownloadFile(
-"  $uri,
-"  $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(
-    "~\vimfiles\autoload\plug.vim"
-"  )
-")
-
-
-" Use :so % to reload
-
 call plug#begin('~/.vim/plugged')
 
 
@@ -126,13 +114,13 @@ let mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
+
+
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 
-map <silent> <leader><cr> :noh<cr>  
-map <leader>% :so %dows
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -321,7 +309,7 @@ au TabLeave * let g:lasttab = tabpagenr()
 map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
-"map <leader>cd :cd %:p:h<cr>:pwd<cr>
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers 
 try
@@ -401,8 +389,8 @@ map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
-
-
+" turns of highlighting(not working with <cr> after it, should figure out why)
+map <leader><cr> :noh 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
