@@ -1,35 +1,40 @@
 "                  Georges vimrc
 " auto-installs vim-plug if not found
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl .flo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
 
-
 if filereadable(expand("~/.vim/autoload/plug.vim")) 
   call plug#begin('~/.vim/plugged')
   Plug 'git@github.com:Valloric/YouCompleteMe.git'
   Plug 'git@github.com:kien/ctrlp.vim.git'
   Plug 'git@github.com:rking/ag.vim.git'
-  Plug 'git@github.com:iamcco/markdown-preview.nvim.git'
   Plug 'git@github.com:gabrielelana/vim-markdown.git'
   Plug 'git@github.com:airblade/vim-gitgutter.git'
-  Plug 'git@github.com:maxbrunsfeld/vim-yankstack.git'
+  Plug 'vim-airline/vim-airline'
   Plug 'morhetz/gruvbox'
   Plug 'tpope/vim-fugitive'
   Plug 'scrooloose/nerdtree'
   Plug 'preservim/nerdcommenter'
   call plug#end()
-  let g:go_fmt_fail_silently = 0
-  let g:go_fmt_command = "goimports"
-  let g:go_fmt_autosave = 1
 endif
 
-
-set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+
+
+" make vim faster
+set timeoutlen=1000
+set ttimeoutlen=0
+
+" start at last place you were editing
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
 " fixes everything being highlighted after scrolling" fixes everything being highlighted after scrolling
@@ -44,6 +49,23 @@ set path+=**
 set wildmenu
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+" fugitive pluggin remaps
+nmap <leader>gh :diffget //3<cr>
+nmap <leader>gu :diffget //2<cr>
+nmap <leader>gs :G<cr>
+
 " no arrow keys (vi muscle memory)
 
 noremap <up> :echoerr "Umm, use k instead"<CR>
@@ -55,22 +77,13 @@ inoremap <down> <NOP>
 inoremap <left> <NOP>
 inoremap <right> <NOP>
 
-" start at last place you were editing
-
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-" make vim faster
-set timeoutlen=1000
-set ttimeoutlen=0
-
-
-
-
-" example
+" markdown remaps
 nmap <C-s> <Plug>MarkdownPreview
 nmap <M-s> <Plug>MarkdownPreviewStop
 nmap <C-p> <Plug>MarkdownPreviewToggle
 
+" Fast saving
+nmap <leader>w :w!<CR>
 
 
 "nerdtree
@@ -117,12 +130,7 @@ set viminfo='20,<1000,s100
 set autoread
 au FocusGained,BufEnter * checktime
 
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
 
-" Fast saving
-nmap <leader>w :w!<cr>
 
 
 
@@ -340,25 +348,6 @@ set laststatus=2
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
-
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
     let save_cursor = getpos(".")
@@ -400,7 +389,7 @@ map <leader>x :e ~/buffer.md<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 " turns of highlighting(not working with <cr> after it, should figure out why)
-map <leader><cr> :noh 
+map <leader><cr> :noh<cr> 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
