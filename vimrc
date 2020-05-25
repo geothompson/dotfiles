@@ -68,10 +68,10 @@ nmap <leader>gs :G<cr>
 
 " no arrow keys (vi muscle memory)
 
-noremap <up> :echoerr "Umm, use k instead"<CR>
-noremap <down> :echoerr "Umm, use j instead"<CR>
-noremap <left> :echoerr "Umm, use h instead"<CR>
-noremap <right> :echoerr "Umm, use l instead"<CR>
+noremap <up> :echoerr "Umm, use k instead"<cr>
+noremap <down> :echoerr "Umm, use j instead"<cr>
+noremap <left> :echoerr "Umm, use h instead"<cr>
+noremap <right> :echoerr "Umm, use l instead"<cr>
 inoremap <up> <NOP>
 inoremap <down> <NOP>
 inoremap <left> <NOP>
@@ -83,7 +83,7 @@ nmap <M-s> <Plug>MarkdownPreviewStop
 nmap <C-p> <Plug>MarkdownPreviewToggle
 
 " Fast saving
-nmap <leader>w :w!<CR>
+nmap <leader>w :w!<cr>
 
 
 "nerdtree
@@ -286,8 +286,8 @@ set noswapfile
 """"""""""""""""""""""""""""""
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<cr>/<C-R>=@/<cr><cr>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<cr>?<C-R>=@/<cr><cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -318,7 +318,7 @@ map <leader>t<leader> :tabnext
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+nmap <Leader>tl :exe "tabn ".g:lasttab<cr>
 au TabLeave * let g:lasttab = tabpagenr()
 
 
@@ -448,23 +448,23 @@ endfunction
 
 
 
-"nnoremap <leader>h :wincmd h<CR>
-"nnoremap <leader>j :wincmd j<CR>
-"remap <A-j> :m .+1<CR>==
-"nnoremap <A-k> :m .-2<CR>==
-"inoremap <A-j> <Esc>:m .+1<CR>==gi
-"inoremap <A-k> <Esc>:m .-2<CR>==gi
-"vnoremap <A-j> :m '>+1<CR>gv=gv
-"vnoremap <A-k> :m '<-2<CR>gv=gv
-"nnoremap <leader>k :wincmd k<CR>
-"nnoremap <leader>l :wincmd l<CR>
-"nnoremap <leader>u :UndotreeShow<CR>
-"nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+"nnoremap <leader>h :wincmd h<cr>
+"nnoremap <leader>j :wincmd j<cr>
+"remap <A-j> :m .+1<cr>==
+"nnoremap <A-k> :m .-2<cr>==
+"inoremap <A-j> <Esc>:m .+1<cr>==gi
+"inoremap <A-k> <Esc>:m .-2<cr>==gi
+"vnoremap <A-j> :m '>+1<cr>gv=gv
+"vnoremap <A-k> :m '<-2<cr>gv=gv
+"nnoremap <leader>k :wincmd k<cr>
+"nnoremap <leader>l :wincmd l<cr>
+"nnoremap <leader>u :UndotreeShow<cr>
+"nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<cr>
 "nnoremap <Leader>ps :Rg<SPACE>
-"nnoremap <silent> <Leader>+ :vertical resize +5<CR>
-"nnoremap <silent> <Leader>- :vertical resize -5<CR>
-"vnoremap J :m '>+1<CR>gv=gv
-"vnoremap K :m '<-2<CR>gv=gv
+"nnoremap <silent> <Leader>+ :vertical resize +5<cr>
+"nnoremap <silent> <Leader>- :vertical resize -5<cr>
+"vnoremap J :m '>+1<cr>gv=gv
+"vnoremap K :m '<-2<cr>gv=gv
 
 
 
@@ -474,10 +474,10 @@ endfunction
 
 
 
-"nnoremap <A-j> :m .+1<CR>==
-"nnoremap <A-k> :m .-2<CR>==
-"inoremap <A-j> <Esc>:m .+1<CR>==gi
-"inoremap <A-k> <Esc>:m .-2<CR>==gi
-"vnoremap <A-j> :m '>+1<CR>gv=gv
-"vnoremap <A-k> :m '<-2<CR>gv=gv
+"nnoremap <A-j> :m .+1<cr>==
+"nnoremap <A-k> :m .-2<cr>==
+"inoremap <A-j> <Esc>:m .+1<cr>==gi
+"inoremap <A-k> <Esc>:m .-2<cr>==gi
+"vnoremap <A-j> :m '>+1<cr>gv=gv
+"vnoremap <A-k> :m '<-2<cr>gv=gv
 
