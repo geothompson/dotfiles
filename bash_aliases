@@ -9,4 +9,5 @@ alias vi=vim
 alias l.='ls -d .* --color=tty'
 alias c='clear'
 alias mv='mv -n'
+alias lynx='lynx -cfg ~/scripts/lynx/lynx.cfg -lss ~/scripts/lynx/lynx.lss'
 

@@ -12,5 +12,5 @@ ls -l $HOME/.vimrc
 ln -sf $PWD/vimrc /root/.vimrc
 ls -l /root/.vimrc
 
-ln -sf $PWD/scripts/tmux.conf $HOME/.tmux.conf
+ln -sf $PWD/tmux.conf $HOME/.tmux.conf
 ls -l $HOME/.tmux.conf
