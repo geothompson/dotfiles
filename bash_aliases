@@ -9,3 +9,4 @@ alias vi=vim
 alias l.='ls -d .* --color=tty'
 alias c='clear'
 alias mv='mv -n'
+

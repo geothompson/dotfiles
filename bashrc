@@ -51,7 +51,9 @@ shopt -s dotglob
 
 export PATH=/usr/bin/lynx:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesacue/dotfiles/scripts/:$PATH
+export PATH=$HOME/repos/gitlab.com/snapplesacue/README/scripts/:$PATH
 export PATH=$HOME/scripts:$PATH
+
 
 
 d() {
