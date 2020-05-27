@@ -62,6 +62,40 @@ lynx -cfg ~/scripts/lynx/lynx.cfg -lss ~/scripts/lynx/lynx.lss "duckduckgo.com/l
 export -f d
 
 
+
+fmt_time () { #format time just the way I likes it
+    if [ `date +%p` = "PM" ]; then
+        meridiem="pm"
+    else
+        meridiem="am"
+    fi
+    date +"%l:%M:%S$meridiem"|sed 's/ //g'
+}
+
+pwdtail () { #returns the last 2 fields of the working directory
+    pwd|awk -F/ '{nlast = NF -1;print $nlast"/"$NF}'
+}
+
+chkload () { #gets the current 1m avg CPU load
+    local CURRLOAD=`uptime|awk '{print $8}'`
+    if [ "$CURRLOAD" > "1" ]; then
+        local OUTP="HIGH"
+    elif [ "$CURRLOAD" < "1" ]; then
+        local OUTP="NORMAL"
+    else
+        local OUTP="UNKNOWN"
+    fi
+    echo $CURRLOAD
+}
+
+if [ -f $HOME/.bash_aliases ]
+then
+  . $HOME/.bash_aliases
+fi
+
+
+LS_COLORS=$LS_COLORS:'di=0;35:' ; export LS_COLORS
+
 prompt_command() {
     if [ $? -eq 0 ]; then # set an error string for the prompt, if applicable
         ERRPROMPT=" "
@@ -90,35 +124,3 @@ prompt_command() {
 \w\n${GREEN}${BRANCH}${DEFAULT}$ "
 }
 PROMPT_COMMAND=prompt_command
-
-fmt_time () { #format time just the way I likes it
-    if [ `date +%p` = "PM" ]; then
-        meridiem="pm"
-    else
-        meridiem="am"
-    fi
-    date +"%l:%M:%S$meridiem"|sed 's/ //g'
-}
-pwdtail () { #returns the last 2 fields of the working directory
-    pwd|awk -F/ '{nlast = NF -1;print $nlast"/"$NF}'
-}
-chkload () { #gets the current 1m avg CPU load
-    local CURRLOAD=`uptime|awk '{print $8}'`
-    if [ "$CURRLOAD" > "1" ]; then
-        local OUTP="HIGH"
-    elif [ "$CURRLOAD" < "1" ]; then
-        local OUTP="NORMAL"
-    else
-        local OUTP="UNKNOWN"
-    fi
-    echo $CURRLOAD
-}
-
-if [ -f $HOME/.bash_aliases ]
-then
-  . $HOME/.bash_aliases
-fi
-
-
-LS_COLORS=$LS_COLORS:'di=0;35:' ; export LS_COLORS
-
