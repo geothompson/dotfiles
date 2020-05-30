@@ -1,0 +1,16 @@
+#!/bin/bash
+
+clear
+declare -i n=0
+
+while true; do
+  if [ $(($n%3)) -eq 0 ]
+  then
+    echo -en "${red}nyan"
+  else
+    echo -en "${cyan}nyan"
+  fi
+  sleep .2
+  n=$(($n + 1))
+done
+

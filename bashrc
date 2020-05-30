@@ -53,7 +53,8 @@ export PATH=/usr/bin/lynx:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesacue/dotfiles/scripts/:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesacue/README/scripts/:$PATH
 export PATH=$HOME/scripts:$PATH
-
+export PATH="$DENO_INSTALL/bin:$PATH"
+export DENO_INSTALL="/home/geo_thom/.deno"
 
 
 d() {
