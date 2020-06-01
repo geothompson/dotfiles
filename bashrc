@@ -57,6 +57,15 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 export DENO_INSTALL="/home/geo_thom/.deno"
 
 
+# function to open programs in vim even if you don't know the path
+vic () {
+
+  vim $(which $1)
+}
+
+
+
+# function to search duck duck go with lynx
 d() {
 lynx -cfg ~/scripts/lynx/lynx.cfg -lss ~/scripts/lynx/lynx.lss "duckduckgo.com/lite?q=$*"
 }
