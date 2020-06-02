@@ -44,28 +44,21 @@ autocmd VimEnter * set t_ut=
 
 "Search into subfolders
 "Provides tab completion for all file-related tasks
-set path+=**
 
-"Display matching files with tab complete
-set wildmenu
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-" fugitive pluggin remaps
 nmap <leader>gh :diffget //3<cr>
 nmap <leader>gu :diffget //2<cr>
 nmap <leader>gs :G<cr>
+
+
+" move line up and down
+map - ddp
+map _ ddkP
+
+"copy a line down
+nmap <leader>d ddpp
+
+" make word uppercase
+imap <c-u> <ESC>viwUi
 
 " no arrow keys (vi muscle memory)
 
@@ -289,7 +282,6 @@ set noswapfile
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<cr>/<C-R>=@/<cr><cr>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<cr>?<C-R>=@/<cr><cr>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  "=> Moving around, tabs, windows and buffers
