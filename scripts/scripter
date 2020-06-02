@@ -1,0 +1,35 @@
+#!/bin/bash 
+
+# a script for creating bash scripts by George Thompson
+
+# gets user input
+echo -n "name your script: "
+read filename
+
+# checks if there is already a script in the enviroment whith chosen name
+if [ -z "$(which $filename)" ]
+then
+  # if there is not already a script it it creates the file and adds shabang to it
+  touch $filename
+  echo \#!/bin/bash >| $filename
+
+  # modifies the permisions to make it exicutable only to the creator 
+  chmod u=wrx,go= $filename
+
+
+  echo "script created"
+
+
+  # checks if bash can find the newly created script in the enviroment
+  # then displays that information along with the location of new script
+  if [ -z "$(which $filename)" ]
+  then
+      echo "Your script is not on the path" 
+      echo -e "your script is located at:${txtred}$PWD/$filename${txtrst}"  
+  else
+     echo "Your script is on the path"
+     echo -e "your script is located at:${txtred}$(which $filename)${txtrst}"  
+  fi
+else
+   echo "$filename is already a script"
+fi
