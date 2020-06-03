@@ -7,15 +7,18 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 
+
+
 if filereadable(expand("~/.vim/autoload/plug.vim")) 
   call plug#begin('~/.vim/plugged')
   Plug 'git@github.com:Valloric/YouCompleteMe.git'
   Plug 'git@github.com:kien/ctrlp.vim.git'
   Plug 'git@github.com:rking/ag.vim.git'
-  Plug 'git@github.com:gabrielelana/vim-markdown.git'
+  "  Plug 'git@github.com:gabrielelana/vim-markdown.git'
   Plug 'git@github.com:airblade/vim-gitgutter.git' 
   "Plug 'git@github.com:tpope/vim-surround.git'
   Plug 'morhetz/gruvbox'
+  Plug 'junegunn/vim-peekaboo'
   Plug 'vim-airline/vim-airline'
   Plug 'tpope/vim-fugitive'
   Plug 'scrooloose/nerdtree'
@@ -38,30 +41,47 @@ set ttimeoutlen=0
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
+" if statement snippets
+augroup filetype_sh
+  autocmd!
+  autocmd FileType sh :iabbrev <buffer> iff if [[  ]]<esc>hhhi
+augroup end
+
+augroup filetype_python
+  autocmd!
+  autocmd FileType python :iabbrev <buffer> iff if:<left>
+augroup end
+
 " fixes everything being highlighted after scrolling" fixes everything being highlighted after scrolling
-autocmd VimEnter * set t_ut=
+augroup venter
+  autocmd!
+  autocmd VimEnter * set t_ut=
+augroup end
 
+nnoremap <leader>c<leader> !!cal<cr>
 
-"Search into subfolders
-"Provides tab completion for all file-related tasks
-
+" gitgutter mappings
 nmap <leader>gh :diffget //3<cr>
 nmap <leader>gu :diffget //2<cr>
 nmap <leader>gs :G<cr>
 
+" maps jk for easier escape
+inoremap jk <esc>
+
+" resourses current file
+nnoremap <leader>sr :so %<cr>
 
 " move line up and down
-map - ddp
-map _ ddkP
+noremap - ddp
+noremap _ ddkP
 
 "copy a line down
-nmap <leader>d ddpp
+nnoremap <leader>d ddpp
 
 " make word uppercase
-imap <c-u> <ESC>viwUi
+inoremap <c-u> <ESC>viwUi
 
 " no arrow keys (vi muscle memory)
-
 noremap <up> :echoerr "Umm, use k instead"<cr>
 noremap <down> :echoerr "Umm, use j instead"<cr>
 noremap <left> :echoerr "Umm, use h instead"<cr>
@@ -75,6 +95,8 @@ inoremap <right> <NOP>
 nmap <C-s> <Plug>MarkdownPreview
 nmap <M-s> <Plug>MarkdownPreviewStop
 nmap <C-p> <Plug>MarkdownPreviewToggle
+
+"onoremap ih :<c-u>execute '"normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -307,7 +329,7 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>t<leader> :tabnext<cr>
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
