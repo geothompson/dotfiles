@@ -3,8 +3,14 @@
 # a script for creating bash scripts by George Thompson
 
 # gets user input
-echo -n "name your script: "
-read filename
+if [[ -z "$1" ]]; 
+then
+  echo -n "name your script: "
+  read filename
+else
+   filename=$1
+fi 
+
 
 # checks if there is already a script in the enviroment whith chosen name
 if [ -z "$(which $filename)" ]

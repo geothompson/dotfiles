@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd ~/repos/gitlab.com/snapplesacue/notes
+vi README.md
