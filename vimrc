@@ -6,7 +6,7 @@
 
  if filereadable(expand("~/.vim/autoload/plug.vim"))
    call plug#begin('~/.vim/plugged')
-   Plug 'git@github.com:valloric/youcompleteme.git'
+   Plug 'git@github.com:Valloric/YouCompleteMe.git'
    Plug 'git@github.com:kien/ctrlp.vim.git'
    Plug 'git@github.com:rking/ag.vim.git'
    Plug 'git@github.com:airblade/vim-gitgutter.git'
@@ -14,7 +14,7 @@
    Plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
    Plug 'vim-pandoc/vim-pandoc'
    Plug 'godlygeek/tabular'
-   Plug 'henrynewcomer/vim-theme-papaya'
+   Plug 'HenryNewcomer/vim-theme-papaya'
    Plug 'ap/vim-css-color'
    Plug 'morhetz/gruvbox'
    Plug 'junegunn/vim-peekaboo'
@@ -24,7 +24,7 @@
    Plug 'tpope/vim-endwise'
    Plug 'scrooloose/nerdtree'
    Plug 'preservim/nerdcommenter'
-   Plug 'theprimeagen/vim-be-good'
+   Plug 'ThePrimeagen/vim-be-good'
    Plug 'kana/vim-textobj-user'
    Plug 'kana/vim-textobj-line'
    Plug 'kana/vim-textobj-indent'

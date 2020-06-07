@@ -8,7 +8,22 @@ then
   echo -n "name your script: "
   read filename
 else
-   filename=$1
+  while [[ "$1" != "" ]]; do
+    case $1 in
+      -f | --file )       shift
+                          filename=$1
+                          ;;
+     -b | --bash )        filetype="bash"
+                          ;;
+     -p | --python)       filetype="python"
+                          ;;
+     -j | --javascript)   filetype="js"
+                          ;;
+     *)                   echo "usage"
+                          exit 1 
+    esac
+    shift
+  done
 fi 
 
 
@@ -17,8 +32,7 @@ if [ -z "$(which $filename)" ]
 then
   # if there is not already a script it it creates the file and adds shabang to it
   touch $filename
-  echo \#!/bin/bash >| $filename
-
+  echo "#!/bin/${filetype}" >| $filename
   # modifies the permisions to make it exicutable only to the creator 
   chmod u=wrx,go= $filename
 
@@ -38,4 +52,5 @@ then
   fi
 else
    echo "$filename is already a script"
+   exit 1
 fi

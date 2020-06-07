@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+
+script_path=$(which $1)
