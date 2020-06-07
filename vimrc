@@ -6,30 +6,31 @@
 
  if filereadable(expand("~/.vim/autoload/plug.vim"))
    call plug#begin('~/.vim/plugged')
+   Plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
+   Plug 'git@github.com:nanotech/jellybeans.vim.git'
    Plug 'git@github.com:Valloric/YouCompleteMe.git'
+   Plug 'git@github.com:airblade/vim-gitgutter.git'
    Plug 'git@github.com:kien/ctrlp.vim.git'
    Plug 'git@github.com:rking/ag.vim.git'
-   Plug 'git@github.com:airblade/vim-gitgutter.git'
-   Plug 'jpalardy/vim-slime'
-   Plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
-   Plug 'vim-pandoc/vim-pandoc'
-   Plug 'godlygeek/tabular'
    Plug 'HenryNewcomer/vim-theme-papaya'
-   Plug 'ap/vim-css-color'
-   Plug 'morhetz/gruvbox'
-   Plug 'junegunn/vim-peekaboo'
-   Plug 'vim-airline/vim-airline'
    Plug 'vim-airline/vim-airline-themes'
-   Plug 'tpope/vim-fugitive'
-   Plug 'tpope/vim-endwise'
-   Plug 'scrooloose/nerdtree'
-   Plug 'preservim/nerdcommenter'
+   Plug 'beloglazov/vim-textobj-quotes'
    Plug 'ThePrimeagen/vim-be-good'
+   Plug 'kana/vim-textobj-entire'
+   Plug 'vim-airline/vim-airline'
+   Plug 'kana/vim-textobj-indent'
+   Plug 'preservim/nerdcommenter'
+   Plug 'vim-pandoc/vim-pandoc'
+   Plug 'junegunn/vim-peekaboo'
    Plug 'kana/vim-textobj-user'
    Plug 'kana/vim-textobj-line'
-   Plug 'kana/vim-textobj-indent'
-   Plug 'kana/vim-textobj-entire'
-   Plug 'beloglazov/vim-textobj-quotes'
+   Plug 'scrooloose/nerdtree'
+   Plug 'tpope/vim-fugitive'
+   Plug 'jpalardy/vim-slime'
+   Plug 'godlygeek/tabular'
+   Plug 'tpope/vim-endwise'
+   Plug 'ap/vim-css-color'
+   Plug 'morhetz/gruvbox'
    call plug#end()
 endif
 
@@ -96,7 +97,7 @@ nnoremap <leader>sr :so %<cr>
 
 " move line up and down
 noremap - ddp
-noremap _ ddkp
+noremap _ ddkP
 
 "copy a line down
 nnoremap <leader>d ddpp
