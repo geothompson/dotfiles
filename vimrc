@@ -1,13 +1,13 @@
 "                  georges vimrc
 " auto-installs vim-plug if not found
+   "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+   "plug 'gabrielelana/vim-markdown'
 
 
- "plug 'gabrielelana/vim-markdown'
 
  if filereadable(expand("~/.vim/autoload/plug.vim"))
    call plug#begin('~/.vim/plugged')
    Plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
-   Plug 'git@github.com:nanotech/jellybeans.vim.git'
    Plug 'git@github.com:Valloric/YouCompleteMe.git'
    Plug 'git@github.com:airblade/vim-gitgutter.git'
    Plug 'git@github.com:kien/ctrlp.vim.git'
@@ -15,6 +15,7 @@
    Plug 'HenryNewcomer/vim-theme-papaya'
    Plug 'vim-airline/vim-airline-themes'
    Plug 'beloglazov/vim-textobj-quotes'
+   Plug 'sainnhe/gruvbox-material'
    Plug 'ThePrimeagen/vim-be-good'
    Plug 'kana/vim-textobj-entire'
    Plug 'vim-airline/vim-airline'
@@ -42,6 +43,7 @@ runtime! ftplugin/man.vim
 
 
 
+let g:ycm_show_diagnostics_ui = 0
 
 " with a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -126,14 +128,14 @@ inoremap <c-h> <esc>i
 inoremap <c-u> <esc>viwui
 
 " no arrow keys (vi muscle memory)
-noremap <up> :echoerr "umm, use k instead"<cr>
-noremap <down> :echoerr "umm, use j instead"<cr>
-noremap <left> :echoerr "umm, use h instead"<cr>
-noremap <right> :echoerr "umm, use l instead"<cr>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
+"noremap <up> :echoerr "umm, use k instead"<cr>
+"noremap <down> :echoerr "umm, use j instead"<cr>
+"noremap <left> :echoerr "umm, use h instead"<cr>
+"noremap <right> :echoerr "umm, use l instead"<cr>
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
 
 
 "onoremap ih :<c-u>execute '"normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
@@ -281,17 +283,18 @@ if $colorterm == 'gnome-terminal'
     set t_co=256
 endif
 
-try
-    colorscheme jellybeans
+" airline theme
+"let g:airline_theme='jellybeans'
 
+try
 
 catch
 endtry
 
+colorscheme mybeans
+
 set background=dark
 
-" airline theme
-let g:airline_theme='jellybeans'
 
 " set extra options when running in gui mode
 if has("gui_running")
@@ -403,7 +406,7 @@ au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 set laststatus=2
 
 " format the status line
-set statusline=\ %{haspaste()}%f%m%r%h\ %w\ \ cwd:\ %r%{getcwd()}%h\ \ \ line:\ %l\ \ column:\ %c
+set statusline=\ %{HasPaste()}%f%m%r%h\ %w\ \ cwd:\ %r%{getcwd()}%h\ \ \ line:\ %l\ \ column:\ %c
 
 " delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
@@ -499,42 +502,4 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
-
-
-
-
-
-
-"nnoremap <leader>h :wincmd h<cr>
-"nnoremap <leader>j :wincmd j<cr>
-"remap <a-j> :m .+1<cr>==
-"nnoremap <a-k> :m .-2<cr>==
-"inoremap <a-j> <esc>:m .+1<cr>==gi
-"inoremap <a-k> <esc>:m .-2<cr>==gi
-"vnoremap <a-j> :m '>+1<cr>gv=gv
-"vnoremap <a-k> :m '<-2<cr>gv=gv
-"nnoremap <leader>k :wincmd k<cr>
-"nnoremap <leader>l :wincmd l<cr>
-"nnoremap <leader>u :undotreeshow<cr>
-"nnoremap <leader>pv :wincmd v<bar> :ex <bar> :vertical resize 30<cr>
-"nnoremap <leader>ps :rg<space>
-"nnoremap <silent> <leader>+ :vertical resize +5<cr>
-"nnoremap <silent> <leader>- :vertical resize -5<cr>
-"vnoremap j :m '>+1<cr>gv=gv
-"vnoremap k :m '<-2<cr>gv=gv
-
-
-
-
-
-
-
-
-
-"nnoremap <a-j> :m .+1<cr>==
-"nnoremap <a-k> :m .-2<cr>==
-"inoremap <a-j> <esc>:m .+1<cr>==gi
-"inoremap <a-k> <esc>:m .-2<cr>==gi
-"vnoremap <a-j> :m '>+1<cr>gv=gv
-"vnoremap <a-k> :m '<-2<cr>gv=gv
 

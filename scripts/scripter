@@ -22,7 +22,7 @@ else
      *)                   echo "usage"
                           exit 1 
     esac
-    shift
+    shift    
   done
 fi 
 

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+mkmanifest () {
+    declare line
+    while IFS= read -r line;do
+      line=${line#./}
+      [[ "$line" == . ]] && continue
+      echo "$line"
+    done <<<  $(find . ! -path '*/_*' -a -name "README.md" -printf "%h\n"| sort -d) > MANIFEST
+}
+
+
+render() {
+declare dir="$1"
+echo Building $dir
+pandoc -s -o  "$dir/index.html" --quiet --template=$tpath/template.html "./$dir/README.md"
+}
+  
+cd $PWD
+tpath=$PWD
+mkmanifest
+
+render .
+
+while IFS= read -r dir; do
+  render $dir
+done < MANIFEST
+
+#pandoc --template=template.html --quiet -o ./index.html -s ./README.md
+#pandoc --template=template.html --quiet -o ./help/index.html -s ./help/README.md
+#pandoc --template=template.html --quiet -o ./another/index.html -s ./another/README.md
