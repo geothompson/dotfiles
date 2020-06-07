@@ -1,36 +1,65 @@
-"                  Georges vimrc
+"                  georges vimrc
 " auto-installs vim-plug if not found
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl .flo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall
+  autocmd vimenter * pluginstall
 endif
 
+ "plug 'gabrielelana/vim-markdown'
+
+ if filereadable(expand("~/.vim/autoload/plug.vim")) 
+   call plug#begin('~/.vim/plugged')
+   plug 'git@github.com:valloric/youcompleteme.git'
+   plug 'git@github.com:kien/ctrlp.vim.git'
+   plug 'git@github.com:rking/ag.vim.git'
+   plug 'git@github.com:airblade/vim-gitgutter.git' 
+   plug 'jpalardy/vim-slime'
+   plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
+   plug 'vim-pandoc/vim-pandoc'
+   plug 'godlygeek/tabular'
+   plug 'henrynewcomer/vim-theme-papaya'
+   plug 'ap/vim-css-color'
+   plug 'morhetz/gruvbox'
+   plug 'junegunn/vim-peekaboo'
+   plug 'vim-airline/vim-airline'
+   plug 'vim-airline/vim-airline-themes'
+   plug 'tpope/vim-fugitive'
+   plug 'tpope/vim-endwise'
+   plug 'scrooloose/nerdtree'
+   plug 'preservim/nerdcommenter'
+   plug 'theprimeagen/vim-be-good'
+   plug 'kana/vim-textobj-user'
+   plug 'kana/vim-textobj-line'
+   plug 'kana/vim-textobj-indent'
+   plug 'kana/vim-textobj-entire'
+   plug 'beloglazov/vim-textobj-quotes'
 
 
-if filereadable(expand("~/.vim/autoload/plug.vim")) 
-  call plug#begin('~/.vim/plugged')
-  Plug 'git@github.com:Valloric/YouCompleteMe.git'
-  Plug 'git@github.com:kien/ctrlp.vim.git'
-  Plug 'git@github.com:rking/ag.vim.git'
-  "  Plug 'git@github.com:gabrielelana/vim-markdown.git'
-  Plug 'git@github.com:airblade/vim-gitgutter.git' 
-  "Plug 'git@github.com:tpope/vim-surround.git'
-  Plug 'morhetz/gruvbox'
-  Plug 'junegunn/vim-peekaboo'
-  Plug 'vim-airline/vim-airline'
-  Plug 'tpope/vim-fugitive'
-  Plug 'scrooloose/nerdtree'
-  Plug 'preservim/nerdcommenter'
   call plug#end()
 endif
 
 filetype off                  " required
+filetype plugin on
 
-" With a map leader it's possible to do extra key combinations
+" a plugin where to add man page in window(can't get it to work)
+runtime! ftplugin/man.vim
+
+
+
+
+" with a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
+
+
+augroup pandoc_syntax
+    au! bufnewfile,buffilepre,bufread *.md set filetype=markdown.pandoc
+augroup end
+
+
+let g:slime_target = "tmux"
 
 
 " make vim faster
@@ -38,24 +67,24 @@ set timeoutlen=1000
 set ttimeoutlen=0
 
 " start at last place you were editing
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
 " if statement snippets
 augroup filetype_sh
   autocmd!
-  autocmd FileType sh :iabbrev <buffer> iff if [[  ]]<esc>hhhi
+  autocmd filetype sh :iabbrev <buffer> iff if [[  ]]<esc>hhhi
 augroup end
 
 augroup filetype_python
   autocmd!
-  autocmd FileType python :iabbrev <buffer> iff if:<left>
+  autocmd filetype python :iabbrev <buffer> iff if:<left>
 augroup end
 
 " fixes everything being highlighted after scrolling" fixes everything being highlighted after scrolling
 augroup venter
   autocmd!
-  autocmd VimEnter * set t_ut=
+  autocmd vimenter * set t_ut=
 augroup end
 
 nnoremap <leader>c<leader> !!cal<cr>
@@ -63,7 +92,8 @@ nnoremap <leader>c<leader> !!cal<cr>
 " gitgutter mappings
 nmap <leader>gh :diffget //3<cr>
 nmap <leader>gu :diffget //2<cr>
-nmap <leader>gs :G<cr>
+nmap <leader>gs :g<cr>
+let g:gitgutter_enabled = 0
 
 " maps jk for easier escape
 inoremap jk <esc>
@@ -73,61 +103,80 @@ nnoremap <leader>sr :so %<cr>
 
 " move line up and down
 noremap - ddp
-noremap _ ddkP
+noremap _ ddkp
 
 "copy a line down
 nnoremap <leader>d ddpp
 
+"move highlighted section up or down
+vnoremap j :m '>+1<cr>gv=gv
+vnoremap k :m '<-2<cr>gv=gv
+
+"----------insert mode remaps------------------------
+
+"quick movements
+inoremap ii <esc>i
+inoremap aa <esc>a
+inoremap oo <esc>o
+
+"line modficatons
+inoremap cc <esc>c
+inoremap ss <esc>s
+inoremap dd <esc>dd
+inoremap uu <esc>u
+
+inoremap <c-h> <esc>i
+
 " make word uppercase
-inoremap <c-u> <ESC>viwUi
+inoremap <c-u> <esc>viwui
 
 " no arrow keys (vi muscle memory)
-noremap <up> :echoerr "Umm, use k instead"<cr>
-noremap <down> :echoerr "Umm, use j instead"<cr>
-noremap <left> :echoerr "Umm, use h instead"<cr>
-noremap <right> :echoerr "Umm, use l instead"<cr>
-inoremap <up> <NOP>
-inoremap <down> <NOP>
-inoremap <left> <NOP>
-inoremap <right> <NOP>
+noremap <up> :echoerr "umm, use k instead"<cr>
+noremap <down> :echoerr "umm, use j instead"<cr>
+noremap <left> :echoerr "umm, use h instead"<cr>
+noremap <right> :echoerr "umm, use l instead"<cr>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
 
 " markdown remaps
-nmap <C-s> <Plug>MarkdownPreview
-nmap <M-s> <Plug>MarkdownPreviewStop
-nmap <C-p> <Plug>MarkdownPreviewToggle
+nmap <c-s> <plug>markdownpreview
+nmap <m-s> <plug>markdownpreviewstop
+nmap <c-p> <plug>markdownpreviewtoggle
 
 "onoremap ih :<c-u>execute '"normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
 
-" Fast saving
+" fast saving
 nmap <leader>w :w!<cr>
 
 
 "nerdtree
-let NERDTreeMinimalUI = 1
+let nerdtreeminimalui = 1
 
 
 
 filetype plugin on
 
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
+" => general
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sets how many lines of history VIM has to remember
+" sets how many lines of history vim has to remember
 set nonu
-set relativenumber
+set number relativenumber
 set history=100
 set formatoptions-=w
 set formatoptions+=1
-set formatoptions+=M
+set formatoptions+=m
 set formatoptions+=l   " long lines not broken in insert mode
 set formatoptions-=b   " don't use broken 'vi-compatible auto-wrapping'
 set formatoptions-=v   " don't use broken 'vi-compatible auto-wrapping'
 set formatoptions+=j   " delete comment prefix when joining
 set formatoptions-=a   " disable auto-formatting of paragraph changes
 set formatoptions-=r   " don't auto-insert comment leader on enter in insert
-set formatoptions-=o   " don't auto-insert comment leader on o/O in normal
+set formatoptions-=o   " don't auto-insert comment leader on o/o in normal
 set formatoptions+=c   " autowrap comments using textwidth with leader
 set formatoptions-=t   " don't auto-wrap text using text width
 
@@ -142,229 +191,231 @@ set scrolloff=999
 set viminfo='20,<1000,s100
         
 
-" Set to auto read when a file is changed from the outside
+" set to auto read when a file is changed from the outside
 set autoread
-au FocusGained,BufEnter * checktime
+au focusgained,bufenter * checktime
 
 
 
 
 
-" :W sudo saves the file 
+" :w sudo saves the file 
 " (useful for handling the permission-denied error)
-command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+command! w execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
+" => vim user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 7 lines to the cursor - when moving vertically using j/k
+" set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
-" Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
+" avoid garbled characters in chinese language windows os
+let $lang='en' 
 set langmenu=en
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
+source $vimruntime/delmenu.vim
+source $vimruntime/menu.vim
 
-" Turn on the Wild menu
+" turn on the wild menu
 set wildmenu
 
-" Ignore compiled files
+" ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
     set wildignore+=.git\*,.hg\*,.svn\*
 else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.ds_store
 endif
 
-"Always show current position
+"always show current position
 set ruler
 
-" Height of the command bar
+" height of the command bar
 set cmdheight=1
 
 
 set hid
 
-" Configure backspace so it acts as it should act
+" configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
-" Ignore case when searching
+" ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" when searching try to be smart about cases 
 set smartcase
 
-" Highlight search results
+" highlight search results
 set hlsearch
 
-" Makes search act like search in modern browsers
+" makes search act like search in modern browsers
 set incsearch 
 
-" Don't redraw while executing macros (good performance config)
+" don't redraw while executing macros (good performance config)
 set lazyredraw 
 
-" For regular expressions turn magic on
+" for regular expressions turn magic on
 set magic
 
-" Show matching brackets when text indicator is over them
+" show matching brackets when text indicator is over them
 set showmatch 
-" How many tenths of a second to blink when matching brackets
+" how many tenths of a second to blink when matching brackets
 set mat=2
 
-" No annoying sound on errors
+" no annoying sound on errors
 set noerrorbells
 set visualbell
 set t_vb=
 set tm=500
 
-" Properly disable sound on errors on MacVim
+" properly disable sound on errors on macvim
 if has("gui_macvim")
-    autocmd GUIEnter * set vb t_vb=
+    autocmd guienter * set vb t_vb=
 endif
 
 
-" Add a bit extra margin to the left
+" add a bit extra margin to the left
 set foldcolumn=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
+" => colors and fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
+" enable syntax highlighting
 syntax enable 
+syntax on
 
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
+" enable 256 colors palette in gnome terminal
+if $colorterm == 'gnome-terminal'
+    set t_co=256
 endif
 
 try
-    colorscheme gruvbox
-    
+    colorscheme jellybeans
+      
 
 catch
 endtry
 
 set background=dark
 
-" Set extra options when running in GUI mode
+" airline theme
+let g:airline_theme='jellybeans'
+
+" set extra options when running in gui mode
 if has("gui_running")
-    set guioptions-=T
+    set guioptions-=t
     set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
+    set t_co=256
+    set guitablabel=%m\ %t
 endif
 
-" Set utf8 as standard encoding and en_US as the standard language
+" set utf8 as standard encoding and en_us as the standard language
 set encoding=utf8
 
-" Use Unix as the standard file type
+" use unix as the standard file type
 set ffs=unix,dos,mac
 
-
+" => files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git etc. anyway...
+" turn backup off, since most stuff is in svn, git etc. anyway...
 set nobackup
 set nowb
 set noswapfile
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
+" => text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use spaces instead of tabs
+" use spaces instead of tabs
 set expandtab
 
-" Be smart when using tabs ;)
+" be smart when using tabs ;)
 set smarttab
 " 1 tab == 4 spaces
 set shiftwidth=2
 set tabstop=2
         
-" Linebreak on 500 characters
+" linebreak on 500 characters
 set lbr
 set tw=500
 
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
+set ai "auto indent
+set si "smart indent
+set wrap "wrap lines
 set textwidth=73
 set noswapfile
 "set nohlsearch
 
 
 """"""""""""""""""""""""""""""
-" => Visual mode related
+" => visual mode related
 """"""""""""""""""""""""""""""
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<cr>/<C-R>=@/<cr><cr>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<cr>?<C-R>=@/<cr><cr>
+" visual mode pressing * or # searches for the current selection
+" super useful! from an idea by michael naumann
+vnoremap <silent> * :<c-u>call visualselection('', '')<cr>/<c-r>=@/<cr><cr>
+vnoremap <silent> # :<c-u>call visualselection('', '')<cr>?<c-r>=@/<cr><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
- "=> Moving around, tabs, windows and buffers
+ "=> moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Disable highlight when <leader><cr> is pressed(<cr> == enter)
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" disable highlight when <leader><cr> is pressed(<cr> == enter)
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-h> <c-w>h
+map <c-l> <c-w>l
 
-" Close the current buffer
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
+" close the current buffer
+map <leader>bd :bclose<cr>:tabclose<cr>gt
 
-" Close all the buffers
+" close all the buffers
 map <leader>ba :bufdo bd<cr>
 
 map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
 
-" Useful mappings for managing tabs
+" useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove 
 map <leader>t<leader> :tabnext<cr>
 
-" Let 'tl' toggle between this and the last accessed tab
+" let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<cr>
-au TabLeave * let g:lasttab = tabpagenr()
+nmap <leader>tl :exe "tabn ".g:lasttab<cr>
+au tableave * let g:lasttab = tabpagenr()
 
 
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
+" opens a new tab with the current buffer's path
+" super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
-" Switch CWD to the directory of the open buffer
+" switch cwd to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" specify the behavior when switching between buffers 
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
 catch
 endtry
 
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" return to last edit position when opening files (you want this!)
+au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 """"""""""""""""""""""""""""""
-" => Status line
+" => status line
 """"""""""""""""""""""""""""""
-" Always show the status line
+" always show the status line
 set laststatus=2
 
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+" format the status line
+set statusline=\ %{haspaste()}%f%m%r%h\ %w\ \ cwd:\ %r%{getcwd()}%h\ \ \ line:\ %l\ \ column:\ %c
 
-" Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
+" delete trailing white space on save, useful for some filetypes ;)
+fun! cleanextraspaces()
     let save_cursor = getpos(".")
     let old_query = getreg('/')
     silent! %s/\s\+$//e
@@ -373,16 +424,16 @@ fun! CleanExtraSpaces()
 endfun
 
 if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+    autocmd bufwritepre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call cleanextraspaces()
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
+" => spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
+" pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-" Shortcuts using <leader>
+" shortcuts using <leader>
 map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
@@ -390,58 +441,58 @@ map <leader>s? z=
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
+" => misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+" remove the windows ^m - when the encodings gets messed up
+noremap <leader>m mmhmt:%s/<c-v><cr>//ge<cr>'tzt'm
 
-" Quickly open a buffer for scribble
+" quickly open a buffer for scribble
 map <leader>q :e ~/buffer<cr>
 
-" Quickly open a markdown buffer for scribble
+" quickly open a markdown buffer for scribble
 map <leader>x :e ~/buffer.md<cr>
 
-" Toggle paste mode on and off
+" toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 " turns of highlighting(not working with <cr> after it, should figure out why)
 map <leader><cr> :noh<cr> 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
+" => helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Returns true if paste mode is enabled
-function! HasPaste()
+" returns true if paste mode is enabled
+function! haspaste()
     if &paste
-        return 'PASTE MODE  '
+        return 'paste mode  '
     endif
     return ''
 endfunction
 
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-    let l:currentBufNum = bufnr("%")
-    let l:alternateBufNum = bufnr("#")
+" don't close window, when deleting a buffer
+command! bclose call <sid>bufclosecloseit()
+function! <sid>bufclosecloseit()
+    let l:currentbufnum = bufnr("%")
+    let l:alternatebufnum = bufnr("#")
 
-    if buflisted(l:alternateBufNum)
+    if buflisted(l:alternatebufnum)
         buffer #
     else
         bnext
     endif
 
-    if bufnr("%") == l:currentBufNum
+    if bufnr("%") == l:currentbufnum
         new
     endif
 
-    if buflisted(l:currentBufNum)
-        execute("bdelete! ".l:currentBufNum)
+    if buflisted(l:currentbufnum)
+        execute("bdelete! ".l:currentbufnum)
     endif
 endfunction
 
-function! CmdLine(str)
+function! cmdline(str)
     call feedkeys(":" . a:str)
 endfunction 
 
-function! VisualSelection(direction, extra_filter) range
+function! visualselection(direction, extra_filter) range
     let l:saved_reg = @"
     execute "normal! vgvy"
 
@@ -449,9 +500,9 @@ function! VisualSelection(direction, extra_filter) range
     let l:pattern = substitute(l:pattern, "\n$", "", "")
 
     if a:direction == 'gv'
-        call CmdLine("Ack '" . l:pattern . "' " )
+        call cmdline("ack '" . l:pattern . "' " )
     elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
+        call cmdline("%s" . '/'. l:pattern . '/')
     endif
 
     let @/ = l:pattern
@@ -465,21 +516,21 @@ endfunction
 
 "nnoremap <leader>h :wincmd h<cr>
 "nnoremap <leader>j :wincmd j<cr>
-"remap <A-j> :m .+1<cr>==
-"nnoremap <A-k> :m .-2<cr>==
-"inoremap <A-j> <Esc>:m .+1<cr>==gi
-"inoremap <A-k> <Esc>:m .-2<cr>==gi
-"vnoremap <A-j> :m '>+1<cr>gv=gv
-"vnoremap <A-k> :m '<-2<cr>gv=gv
+"remap <a-j> :m .+1<cr>==
+"nnoremap <a-k> :m .-2<cr>==
+"inoremap <a-j> <esc>:m .+1<cr>==gi
+"inoremap <a-k> <esc>:m .-2<cr>==gi
+"vnoremap <a-j> :m '>+1<cr>gv=gv
+"vnoremap <a-k> :m '<-2<cr>gv=gv
 "nnoremap <leader>k :wincmd k<cr>
 "nnoremap <leader>l :wincmd l<cr>
-"nnoremap <leader>u :UndotreeShow<cr>
-"nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<cr>
-"nnoremap <Leader>ps :Rg<SPACE>
-"nnoremap <silent> <Leader>+ :vertical resize +5<cr>
-"nnoremap <silent> <Leader>- :vertical resize -5<cr>
-"vnoremap J :m '>+1<cr>gv=gv
-"vnoremap K :m '<-2<cr>gv=gv
+"nnoremap <leader>u :undotreeshow<cr>
+"nnoremap <leader>pv :wincmd v<bar> :ex <bar> :vertical resize 30<cr>
+"nnoremap <leader>ps :rg<space>
+"nnoremap <silent> <leader>+ :vertical resize +5<cr>
+"nnoremap <silent> <leader>- :vertical resize -5<cr>
+"vnoremap j :m '>+1<cr>gv=gv
+"vnoremap k :m '<-2<cr>gv=gv
 
 
 
@@ -489,10 +540,10 @@ endfunction
 
 
 
-"nnoremap <A-j> :m .+1<cr>==
-"nnoremap <A-k> :m .-2<cr>==
-"inoremap <A-j> <Esc>:m .+1<cr>==gi
-"inoremap <A-k> <Esc>:m .-2<cr>==gi
-"vnoremap <A-j> :m '>+1<cr>gv=gv
-"vnoremap <A-k> :m '<-2<cr>gv=gv
+"nnoremap <a-j> :m .+1<cr>==
+"nnoremap <a-k> :m .-2<cr>==
+"inoremap <a-j> <esc>:m .+1<cr>==gi
+"inoremap <a-k> <esc>:m .-2<cr>==gi
+"vnoremap <a-j> :m '>+1<cr>gv=gv
+"vnoremap <a-k> :m '<-2<cr>gv=gv
 

@@ -38,9 +38,12 @@ export bakcyn='\e[46m'   # Cyan
 export bakwht='\e[47m'   # White
  
 export txtrst='\e[0m'    # Text Reset
+export clear=$'\033[H\033[2J'
+export cline=$'\033[0;0H'
 
 
-# turn vim mode on 
+ #turn vim mode on 
+ 
 set -o vi
 
 
@@ -52,6 +55,7 @@ shopt -s dotglob
 export PATH=/usr/bin/lynx:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesacue/dotfiles/scripts/:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesacue/README/scripts/:$PATH
+export PATH=$HOME/repos/gitlab.com/snapplesacue/README/bash/:$PATH
 export PATH=$HOME/scripts:$PATH
 export PATH="$DENO_INSTALL/bin:$PATH"
 export DENO_INSTALL="/home/geo_thom/.deno"
