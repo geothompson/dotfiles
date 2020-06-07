@@ -1,43 +1,36 @@
 "                  georges vimrc
 " auto-installs vim-plug if not found
 
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl .flo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd vimenter * pluginstall
-endif
 
  "plug 'gabrielelana/vim-markdown'
 
- if filereadable(expand("~/.vim/autoload/plug.vim")) 
+ if filereadable(expand("~/.vim/autoload/plug.vim"))
    call plug#begin('~/.vim/plugged')
-   plug 'git@github.com:valloric/youcompleteme.git'
-   plug 'git@github.com:kien/ctrlp.vim.git'
-   plug 'git@github.com:rking/ag.vim.git'
-   plug 'git@github.com:airblade/vim-gitgutter.git' 
-   plug 'jpalardy/vim-slime'
-   plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
-   plug 'vim-pandoc/vim-pandoc'
-   plug 'godlygeek/tabular'
-   plug 'henrynewcomer/vim-theme-papaya'
-   plug 'ap/vim-css-color'
-   plug 'morhetz/gruvbox'
-   plug 'junegunn/vim-peekaboo'
-   plug 'vim-airline/vim-airline'
-   plug 'vim-airline/vim-airline-themes'
-   plug 'tpope/vim-fugitive'
-   plug 'tpope/vim-endwise'
-   plug 'scrooloose/nerdtree'
-   plug 'preservim/nerdcommenter'
-   plug 'theprimeagen/vim-be-good'
-   plug 'kana/vim-textobj-user'
-   plug 'kana/vim-textobj-line'
-   plug 'kana/vim-textobj-indent'
-   plug 'kana/vim-textobj-entire'
-   plug 'beloglazov/vim-textobj-quotes'
-
-
-  call plug#end()
+   Plug 'git@github.com:valloric/youcompleteme.git'
+   Plug 'git@github.com:kien/ctrlp.vim.git'
+   Plug 'git@github.com:rking/ag.vim.git'
+   Plug 'git@github.com:airblade/vim-gitgutter.git'
+   Plug 'jpalardy/vim-slime'
+   Plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
+   Plug 'vim-pandoc/vim-pandoc'
+   Plug 'godlygeek/tabular'
+   Plug 'henrynewcomer/vim-theme-papaya'
+   Plug 'ap/vim-css-color'
+   Plug 'morhetz/gruvbox'
+   Plug 'junegunn/vim-peekaboo'
+   Plug 'vim-airline/vim-airline'
+   Plug 'vim-airline/vim-airline-themes'
+   Plug 'tpope/vim-fugitive'
+   Plug 'tpope/vim-endwise'
+   Plug 'scrooloose/nerdtree'
+   Plug 'preservim/nerdcommenter'
+   Plug 'theprimeagen/vim-be-good'
+   Plug 'kana/vim-textobj-user'
+   Plug 'kana/vim-textobj-line'
+   Plug 'kana/vim-textobj-indent'
+   Plug 'kana/vim-textobj-entire'
+   Plug 'beloglazov/vim-textobj-quotes'
+   call plug#end()
 endif
 
 filetype off                  " required
@@ -74,18 +67,18 @@ au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 augroup filetype_sh
   autocmd!
   autocmd filetype sh :iabbrev <buffer> iff if [[  ]]<esc>hhhi
-augroup end
+augroup END
 
 augroup filetype_python
   autocmd!
   autocmd filetype python :iabbrev <buffer> iff if:<left>
-augroup end
+augroup END
 
 " fixes everything being highlighted after scrolling" fixes everything being highlighted after scrolling
 augroup venter
   autocmd!
   autocmd vimenter * set t_ut=
-augroup end
+augroup END
 
 nnoremap <leader>c<leader> !!cal<cr>
 
@@ -109,8 +102,8 @@ noremap _ ddkp
 nnoremap <leader>d ddpp
 
 "move highlighted section up or down
-vnoremap j :m '>+1<cr>gv=gv
-vnoremap k :m '<-2<cr>gv=gv
+vnoremap J :m '>+1<cr>gv=gv
+vnoremap K :m '<-2<cr>gv=gv
 
 "----------insert mode remaps------------------------
 
@@ -120,6 +113,7 @@ inoremap aa <esc>a
 inoremap oo <esc>o
 
 "line modficatons
+
 inoremap cc <esc>c
 inoremap ss <esc>s
 inoremap dd <esc>dd
@@ -140,10 +134,6 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
-" markdown remaps
-nmap <c-s> <plug>markdownpreview
-nmap <m-s> <plug>markdownpreviewstop
-nmap <c-p> <plug>markdownpreviewtoggle
 
 "onoremap ih :<c-u>execute '"normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
 
@@ -189,7 +179,7 @@ set scrolloff=999
 
 "prevents truncated yanks, deletes, ect....
 set viminfo='20,<1000,s100
-        
+
 
 " set to auto read when a file is changed from the outside
 set autoread
@@ -199,9 +189,9 @@ au focusgained,bufenter * checktime
 
 
 
-" :w sudo saves the file 
+" :w sudo saves the file
 " (useful for handling the permission-denied error)
-command! w execute 'w !sudo tee % > /dev/null' <bar> edit!
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -211,10 +201,10 @@ command! w execute 'w !sudo tee % > /dev/null' <bar> edit!
 set so=7
 
 " avoid garbled characters in chinese language windows os
-let $lang='en' 
+let $lang='en'
 set langmenu=en
-source $vimruntime/delmenu.vim
-source $vimruntime/menu.vim
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 
 " turn on the wild menu
 set wildmenu
@@ -243,23 +233,23 @@ set whichwrap+=<,>,h,l
 " ignore case when searching
 set ignorecase
 
-" when searching try to be smart about cases 
+" when searching try to be smart about cases
 set smartcase
 
 " highlight search results
 set hlsearch
 
 " makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " for regular expressions turn magic on
 set magic
 
 " show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
 " how many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -282,7 +272,7 @@ set foldcolumn=1
 " => colors and fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " enable syntax highlighting
-syntax enable 
+syntax enable
 syntax on
 
 " enable 256 colors palette in gnome terminal
@@ -292,7 +282,7 @@ endif
 
 try
     colorscheme jellybeans
-      
+
 
 catch
 endtry
@@ -335,7 +325,7 @@ set smarttab
 " 1 tab == 4 spaces
 set shiftwidth=2
 set tabstop=2
-        
+
 " linebreak on 500 characters
 set lbr
 set tw=500
@@ -379,7 +369,7 @@ map <leader>h :bprevious<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
+map <leader>tm :tabmove
 map <leader>t<leader> :tabnext<cr>
 
 " let 'tl' toggle between this and the last accessed tab
@@ -395,7 +385,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " switch cwd to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" specify the behavior when switching between buffers 
+" specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -415,7 +405,7 @@ set laststatus=2
 set statusline=\ %{haspaste()}%f%m%r%h\ %w\ \ cwd:\ %r%{getcwd()}%h\ \ \ line:\ %l\ \ column:\ %c
 
 " delete trailing white space on save, useful for some filetypes ;)
-fun! cleanextraspaces()
+fun! CleanExtraSpaces()
     let save_cursor = getpos(".")
     let old_query = getreg('/')
     silent! %s/\s\+$//e
@@ -455,12 +445,12 @@ map <leader>x :e ~/buffer.md<cr>
 " toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 " turns of highlighting(not working with <cr> after it, should figure out why)
-map <leader><cr> :noh<cr> 
+map <leader><cr> :noh<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " returns true if paste mode is enabled
-function! haspaste()
+function! HasPaste()
     if &paste
         return 'paste mode  '
     endif
@@ -468,31 +458,31 @@ function! haspaste()
 endfunction
 
 " don't close window, when deleting a buffer
-command! bclose call <sid>bufclosecloseit()
-function! <sid>bufclosecloseit()
-    let l:currentbufnum = bufnr("%")
-    let l:alternatebufnum = bufnr("#")
+command! Bclose call <sid>BufcloseCloseIt()
+function! <sid>BufcloseCloseit()
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
 
-    if buflisted(l:alternatebufnum)
+    if buflisted(l:alternateBufNum)
         buffer #
     else
         bnext
     endif
 
-    if bufnr("%") == l:currentbufnum
+    if bufnr("%") == l:currentBufNum
         new
     endif
 
-    if buflisted(l:currentbufnum)
-        execute("bdelete! ".l:currentbufnum)
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
     endif
 endfunction
 
-function! cmdline(str)
+function! CmdLine(str)
     call feedkeys(":" . a:str)
-endfunction 
+endfunction
 
-function! visualselection(direction, extra_filter) range
+function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
     execute "normal! vgvy"
 
@@ -500,9 +490,9 @@ function! visualselection(direction, extra_filter) range
     let l:pattern = substitute(l:pattern, "\n$", "", "")
 
     if a:direction == 'gv'
-        call cmdline("ack '" . l:pattern . "' " )
+        call CmdLine("ack '" . l:pattern . "' " )
     elseif a:direction == 'replace'
-        call cmdline("%s" . '/'. l:pattern . '/')
+        call CmdLine("%s" . '/'. l:pattern . '/')
     endif
 
     let @/ = l:pattern
