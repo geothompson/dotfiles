@@ -41,6 +41,16 @@ export txtrst='\e[0m'    # Text Reset
 export clear=$'\033[H\033[2J'
 export cline=$'\033[0;0H'
 
+# adds colors to man page
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+
 
  #turn vim mode on 
  
@@ -53,6 +63,7 @@ shopt -s globstar
 shopt -s dotglob
 
 export PATH=/usr/bin/lynx:$PATH
+export PATH=$HOME/.local/bin/:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesacue/dotfiles/scripts/:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesacue/README/scripts/:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesacue/README/bash/:$PATH
@@ -107,6 +118,8 @@ then
   . $HOME/.bash_aliases
 fi
 
+
+PROMPT_DIRTRIM=2
 
 LS_COLORS=$LS_COLORS:'di=0;35:' ; export LS_COLORS
 

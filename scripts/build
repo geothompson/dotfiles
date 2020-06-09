@@ -13,11 +13,9 @@ mkmanifest () {
 render() {
 declare dir="$1"
 echo Building $dir
-pandoc -s -o  "$dir/index.html" --quiet --template=$tpath/template.html "./$dir/README.md"
+pandoc -s -o  "$dir/index.html" --quiet  --template=html5_template "./$dir/README.md"
 }
   
-cd $PWD
-tpath=$PWD
 mkmanifest
 
 render .

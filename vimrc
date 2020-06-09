@@ -1,5 +1,5 @@
-"                  georges vimrc
-" auto-installs vim-plug if not found
+"            georges vimrc
+   " auto-installs vim-plug if not found
    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
    "plug 'gabrielelana/vim-markdown'
 
@@ -8,6 +8,7 @@
  if filereadable(expand("~/.vim/autoload/plug.vim"))
    call plug#begin('~/.vim/plugged')
    Plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
+   Plug 'tpope/vim-vividchalk'
    Plug 'git@github.com:Valloric/YouCompleteMe.git'
    Plug 'git@github.com:airblade/vim-gitgutter.git'
    Plug 'git@github.com:kien/ctrlp.vim.git'
@@ -41,7 +42,7 @@ filetype plugin on
 " a plugin where to add man page in window(can't get it to work)
 runtime! ftplugin/man.vim
 
-
+runtime! macros/matchit.vim
 
 let g:ycm_show_diagnostics_ui = 0
 
@@ -65,8 +66,13 @@ set ttimeoutlen=0
 " start at last place you were editing
 au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-
 " if statement snippets
+
+augroup filetype_js
+  autocmd!
+  autocmd filetype javascript :iabbrev <buffer> iff if (){<CR>}<up><right><right><right>
+augroup END
+
 augroup filetype_sh
   autocmd!
   autocmd filetype sh :iabbrev <buffer> iff if [[  ]]<esc>hhhi
@@ -74,14 +80,16 @@ augroup END
 
 augroup filetype_python
   autocmd!
-  autocmd filetype python :iabbrev <buffer> iff if:<left>
+  autocmd filetype python :iabbrev <buffer> iff if:<left><up><right>
 augroup END
 
-" fixes everything being highlighted after scrolling" fixes everything being highlighted after scrolling
+" fixes everything being highlighted after scrolling"
 augroup venter
   autocmd!
   autocmd vimenter * set t_ut=
 augroup END
+
+iabbrev #! #!/bin/bash
 
 nnoremap <leader>c<leader> !!cal<cr>
 
@@ -111,16 +119,17 @@ vnoremap K :m '<-2<cr>gv=gv
 "----------insert mode remaps------------------------
 
 "quick movements
-inoremap ii <esc>i
-inoremap aa <esc>a
-inoremap oo <esc>o
+inoremap II <esc>i
+inoremap AA <esc>a
+inoremap OO <esc>o
+
 
 "line modficatons
 
-inoremap cc <esc>c
-inoremap ss <esc>s
-inoremap dd <esc>dd
-inoremap uu <esc>u
+inoremap CC <esc>c
+inoremap SS <esc>s
+inoremap DD <esc>dd
+inoremap UU <esc>u
 
 inoremap <c-h> <esc>i
 
@@ -418,7 +427,7 @@ fun! CleanExtraSpaces()
 endfun
 
 if has("autocmd")
-    autocmd bufwritepre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call cleanextraspaces()
+    autocmd bufwritepre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -450,6 +459,19 @@ map <leader>x :e ~/buffer.md<cr>
 map <leader>pp :setlocal paste!<cr>
 " turns of highlighting(not working with <cr> after it, should figure out why)
 map <leader><cr> :noh<cr>
+
+
+function! s:font()
+  if has('mac')
+    return 'Monaco:h12'
+  elseif has('win32')
+    return 'Consolas:h11,Courier New:h10'
+  else
+    return 'Monospace Medium 12'
+  endif
+endfunction
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -502,4 +524,15 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
+
+
+let b:surround_{char2nr('e')} = "\r\n}"
+let g:surround_{char2nr('-')} = "<% \r %>"
+let g:surround_{char2nr('=')} = "<%= \r %>"
+let g:surround_{char2nr('8')} = "/* \r */"
+let g:surround_{char2nr('s')} = " \r"
+let g:surround_{char2nr('^')} = "/^\r$/"
+let g:surround_indent = 1
+
+
 
