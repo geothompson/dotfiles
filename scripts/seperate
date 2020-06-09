@@ -23,6 +23,7 @@ csplit -ks $filename '/---csplitline/' {$num_of_splits}
 
 perl -i -pe 's/---csplitline/---/' $filename
 
+rm xx00
 
 for file in xx*
 do
