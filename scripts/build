@@ -11,9 +11,15 @@ mkmanifest () {
 
 
 render() {
+declare -r rwx_html=rwx_html_template.html
+declare -r kjhealy_html=kjhealy_html_template.html
+declare -r rwx_css=rwx_css_template.css
+declare -r css=pandoc.css
+
+
 declare dir="$1"
 echo Building $dir
-pandoc -s -o  "$dir/index.html" --quiet --css=rwx_css_template.css  --template=html5_template "./$dir/README.md"
+pandoc -s -o  "$dir/index.html" --quiet --css=pandoc.css  --template=$kjhealy_html "./$dir/README.md"
 }
   
 mkmanifest

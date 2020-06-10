@@ -48,9 +48,9 @@ then
       echo -e "your script is located at:${txtred}$PWD/$filename${txtrst}"  
   else
      echo "Your script is on the path"
-     echo -e "your script is located at:${txtred}$(which $filename)${txtrst}"  
+     echo -e "your script is located at:${txtgrn}$(which $filename)${txtrst}"  
   fi
 else
-   echo "$filename is already a script"
+   echo -e "${txtred}$file is already a script"
    exit 1
 fi

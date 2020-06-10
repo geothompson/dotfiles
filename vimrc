@@ -8,7 +8,6 @@
  if filereadable(expand("~/.vim/autoload/plug.vim"))
    call plug#begin('~/.vim/plugged')
    Plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
-   Plug 'tpope/vim-vividchalk'
    Plug 'git@github.com:Valloric/YouCompleteMe.git'
    Plug 'git@github.com:airblade/vim-gitgutter.git'
    Plug 'git@github.com:kien/ctrlp.vim.git'
@@ -26,6 +25,7 @@
    Plug 'junegunn/vim-peekaboo'
    Plug 'kana/vim-textobj-user'
    Plug 'kana/vim-textobj-line'
+   Plug 'tpope/vim-vividchalk'
    Plug 'scrooloose/nerdtree'
    Plug 'tpope/vim-fugitive'
    Plug 'jpalardy/vim-slime'
@@ -33,6 +33,7 @@
    Plug 'tpope/vim-endwise'
    Plug 'ap/vim-css-color'
    Plug 'morhetz/gruvbox'
+	 Plug 'vimwiki/vimwiki'
    call plug#end()
 endif
 
@@ -53,10 +54,10 @@ let mapleader = ","
 
 augroup pandoc_syntax
     au! bufnewfile,buffilepre,bufread *.md set filetype=markdown.pandoc
-augroup end
+augroup END
 
-
-let g:slime_target = "tmux"
+" sets vims local working directoy to home
+autocmd BufEnter * silent! lcd ~/
 
 
 " make vim faster
@@ -65,6 +66,10 @@ set ttimeoutlen=0
 
 " start at last place you were editing
 au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" common word mistake snippets
+iabbrev rescources resources
+iabbrev Rescources Resources
 
 " if statement snippets
 
@@ -105,12 +110,19 @@ inoremap jk <esc>
 " resourses current file
 nnoremap <leader>sr :so %<cr>
 
+" Newlines
+nnoremap <leader>k o<ESC>k
+nnoremap <leader>j O<ESC>j
+
+" fuck ex mode!
+nnoremap Q <nop>
+
 " move line up and down
 noremap - ddp
 noremap _ ddkP
 
 "copy a line down
-nnoremap <leader>d ddpp
+nnoremap <leader>d yyp
 
 "move highlighted section up or down
 vnoremap J :m '>+1<cr>gv=gv
@@ -221,6 +233,10 @@ source $VIMRUNTIME/menu.vim
 " turn on the wild menu
 set wildmenu
 
+"searches recursively into subfolders
+"provides tab-completion for all file-related tasks
+set path+=**
+
 " ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
@@ -235,6 +251,7 @@ set ruler
 " height of the command bar
 set cmdheight=1
 
+set omnifunc=syntaxcomplete#Complete
 
 set hid
 
@@ -310,7 +327,7 @@ if has("gui_running")
     set guioptions-=t
     set guioptions-=e
     set t_co=256
-    set guitablabel=%m\ %t
+    "set guitablabel=%m\ %t
 endif
 
 " set utf8 as standard encoding and en_us as the standard language
@@ -534,5 +551,6 @@ let g:surround_{char2nr('s')} = " \r"
 let g:surround_{char2nr('^')} = "/^\r$/"
 let g:surround_indent = 1
 
-
+" fixes bug where tabline appears while only having one open
+set showtabline=1
 
