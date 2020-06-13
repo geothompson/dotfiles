@@ -8,9 +8,8 @@ ls -l ~/.bashrc
 ln -sf $PWD/vimrc $HOME/.vimrc
 ls -l $HOME/.vimrc
 
-
-#ln -sf $PWD/vimrc /root/.vimrc
-#ls -l /root/.vimrc
-
 ln -sf $PWD/tmux.conf $HOME/.tmux.conf
 ls -l $HOME/.tmux.conf
+
+ln -sf $PWD/bash_profile $HOME/.bash_profile
+ls -l $HOME/.bash_profile
