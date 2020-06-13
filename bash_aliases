@@ -9,7 +9,7 @@ alias vi=vim
 alias l.='ls -d .* --color=tty'
 alias c='clear'
 alias mv='mv -n'
-alias lynx='lynx -cfg ~/scripts/lynx/lynx.cfg -lss ~/scripts/lynx/lynx.lss'
 alias clear='echo ${clear}'
 alias cds='. cds &>/dev/null'
 alias notes='. notes'
+alias lynx='~/repos/gitlab.com/snapplesacue/dotfiles/scripts/lynx/lynx'

@@ -1,0 +1,12 @@
+#!/bin/bash 
+
+if [ -z "$(which lynx)" ]; then
+  echo need to install lynx
+  exit 1
+fi
+
+mkdir ~/.config/ 2>/dev/null
+rm -rf ~/.config/lynx 2>/dev/null
+ln -s "$PWD" "$HOME/.config/lynx"
+ls -l ~/.config/lynx
+export "PATH=\"$PWD:$PATH\""

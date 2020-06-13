@@ -10,6 +10,8 @@
    Plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
    Plug 'git@github.com:Valloric/YouCompleteMe.git'
    Plug 'git@github.com:airblade/vim-gitgutter.git'
+   Plug 'dapplebeforedawn/vim-typing-practice'
+   Plug 'dapplebeforedawn/vim-typing-practice'
    Plug 'git@github.com:kien/ctrlp.vim.git'
    Plug 'git@github.com:rking/ag.vim.git'
    Plug 'HenryNewcomer/vim-theme-papaya'
@@ -70,6 +72,13 @@ au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " common word mistake snippets
 iabbrev rescources resources
 iabbrev Rescources Resources
+
+" rust println snippet
+"augroup filetype_rs
+  "autocmd!
+  "autocmd filetype rust :iabbrev <buffer> printl println!("");<left><left><left><cr>=Eatchar('\s')<cr>
+
+"augroup END
 
 " if statement snippets
 
@@ -470,7 +479,7 @@ noremap <leader>m mmhmt:%s/<c-v><cr>//ge<cr>'tzt'm
 map <leader>q :e ~/buffer<cr>
 
 " quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
+"map <leader>x :e ~/buffer.md<cr>
 
 " toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
@@ -542,6 +551,11 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
+func Eatchar(pat)
+  let c = nr2char(getchar(0))
+  return (c =~ a:pat) ? '' : c
+endfunc
+iabbrev printl println!("");<left><left><left><c-r>=Eatchar('\s')<cr>
 
 let b:surround_{char2nr('e')} = "\r\n}"
 let g:surround_{char2nr('-')} = "<% \r %>"
