@@ -47,6 +47,8 @@ runtime! ftplugin/man.vim
 
 runtime! macros/matchit.vim
 
+" markdown macros
+let @p= 'ysiw*ysf**lysf**'
 let g:ycm_show_diagnostics_ui = 0
 
 " with a map leader it's possible to do extra key combinations
@@ -73,12 +75,8 @@ au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 iabbrev rescources resources
 iabbrev Rescources Resources
 
-" rust println snippet
-"augroup filetype_rs
-  "autocmd!
-  "autocmd filetype rust :iabbrev <buffer> printl println!("");<left><left><left><cr>=Eatchar('\s')<cr>
-
-"augroup END
+" rust format command
+autocmd vimleavepre *.rs !rustfmt                              %
 
 " if statement snippets
 
@@ -116,7 +114,7 @@ let g:gitgutter_enabled = 0
 " maps jk for easier escape
 inoremap jk <esc>
 
-" resourses current file
+" resources current file
 nnoremap <leader>sr :so %<cr>
 
 " Newlines
@@ -142,7 +140,7 @@ vnoremap K :m '<-2<cr>gv=gv
 "quick movements
 inoremap II <esc>i
 inoremap AA <esc>a
-inoremap OO <esc>o
+inoremap OO <esc>O
 
 
 "line modficatons
@@ -171,7 +169,7 @@ inoremap <c-u> <esc>viwui
 "onoremap ih :<c-u>execute '"normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
 
 " fast saving
-nmap <leader>w :w!<cr>
+nnoremap <leader>w :w!<cr>
 
 
 "nerdtree
@@ -319,7 +317,7 @@ if $colorterm == 'gnome-terminal'
 endif
 
 " airline theme
-"let g:airline_theme='jellybeans'
+let g:airline_theme='jellybeans'
 
 try
 
@@ -556,6 +554,7 @@ func Eatchar(pat)
   return (c =~ a:pat) ? '' : c
 endfunc
 iabbrev printl println!("");<left><left><left><c-r>=Eatchar('\s')<cr>
+iabbrev { {<cr>}OO
 
 let b:surround_{char2nr('e')} = "\r\n}"
 let g:surround_{char2nr('-')} = "<% \r %>"
@@ -567,4 +566,4 @@ let g:surround_indent = 1
 
 " fixes bug where tabline appears while only having one open
 set showtabline=1
-
+set nospell

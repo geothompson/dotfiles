@@ -1,0 +1,45 @@
+#!/bin/bash
+
+
+while [[ "$1" != "" ]]; do
+  case $1 in
+
+    -b | --bash)        shift
+                        fileType="bash"
+                        ;;
+      --perl)           shift
+                        fileType="perl"
+                        ;;
+     --python)          shift
+                        fileType="python"
+                        ;;
+           -c)          shift
+                        fileType="c"
+                        ;;
+ -rs | --rust)          shift
+                        fileType="rust"
+                        ;;
+   -a | --asm)          shift
+                        fileType="asm"
+                        ;;
+  -d | --dash)          shift
+                        fileType="dash"
+                        ;;
+  -f | --filename)      shift
+                        filename="$1"
+                        ;;
+            *)          echo "usage: scrip -<filetype>"
+                        exit 1
+  esac
+  shift
+done
+
+
+if [ -n "$(which $filename)" ]; then
+  echo -e "${txtred}already a script on the path${txtrst}"    
+  exit 1
+fi
+
+echo "#!/bin/$fileType" >> $filename
+chmod u+x,go= "$filename"
+ls -l "$filename"

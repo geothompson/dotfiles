@@ -13,3 +13,6 @@ ls -l $HOME/.tmux.conf
 
 ln -sf $PWD/bash_profile $HOME/.bash_profile
 ls -l $HOME/.bash_profile
+
+ln -sf $PWD/gdbinit ~/.gdbinit
+ls -l ~/.gdbinit
