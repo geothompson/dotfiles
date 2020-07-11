@@ -320,11 +320,10 @@ endif
 let g:airline_theme='jellybeans'
 
 try
-
+  colorscheme mybeans
 catch
 endtry
 
-colorscheme mybeans
 
 set background=dark
 
