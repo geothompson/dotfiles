@@ -73,7 +73,7 @@ au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " common word mistake snippets
 iabbrev rescources resources
-iabbrev Rescources Resources
+iabbrev rescources resources
 
 " rust format command
 autocmd vimleavepre *.rs !rustfmt                              %
@@ -119,7 +119,7 @@ nnoremap <leader>sr :so %<cr>
 
 " Newlines
 nnoremap <leader>k o<ESC>k
-nnoremap <leader>j O<ESC>j
+nnoremap <leader>j O<ESC>
 
 " fuck ex mode!
 nnoremap Q <nop>
@@ -138,22 +138,21 @@ vnoremap K :m '<-2<cr>gv=gv
 "----------insert mode remaps------------------------
 
 "quick movements
-inoremap II <esc>i
-inoremap AA <esc>a
+inoremap II <esc>I
+inoremap AA <esc>A
 inoremap OO <esc>O
-
-
+ 
 "line modficatons
-
 inoremap CC <esc>c
 inoremap SS <esc>s
 inoremap DD <esc>dd
 inoremap UU <esc>u
 
+"moves cursor back one space in insert mode
 inoremap <c-h> <esc>i
 
 " make word uppercase
-inoremap <c-u> <esc>viwui
+inoremap <c-U> <esc>viwui
 
 " no arrow keys (vi muscle memory)
 "noremap <up> :echoerr "umm, use k instead"<cr>
