@@ -51,6 +51,6 @@ then
      echo -e "your script is located at:${txtgrn}$(which $filename)${txtrst}"  
   fi
 else
-   echo -e "${txtred}$file is already a script"
+   echo -e "${txtred}$filename is already a script"
    exit 1
 fi

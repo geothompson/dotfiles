@@ -5,7 +5,7 @@ alias ?='d'
 alias ??=googl
 alias ls='ls -h --color=auto'
 alias ll="ls -la"
-alias vi=vim
+alias vi=nvim
 alias l.='ls -d .* --color=tty'
 alias c='clear'
 alias mv='mv -n'

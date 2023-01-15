@@ -7,23 +7,13 @@
 
  if filereadable(expand("~/.vim/autoload/plug.vim"))
    call plug#begin('~/.vim/plugged')
-   Plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
-   Plug 'git@github.com:Valloric/YouCompleteMe.git'
-   Plug 'git@github.com:airblade/vim-gitgutter.git'
-   Plug 'dapplebeforedawn/vim-typing-practice'
-   Plug 'dapplebeforedawn/vim-typing-practice'
-   Plug 'git@github.com:kien/ctrlp.vim.git'
-   Plug 'git@github.com:rking/ag.vim.git'
    Plug 'HenryNewcomer/vim-theme-papaya'
-   Plug 'vim-airline/vim-airline-themes'
    Plug 'beloglazov/vim-textobj-quotes'
    Plug 'sainnhe/gruvbox-material'
    Plug 'ThePrimeagen/vim-be-good'
    Plug 'kana/vim-textobj-entire'
-   Plug 'vim-airline/vim-airline'
    Plug 'kana/vim-textobj-indent'
    Plug 'preservim/nerdcommenter'
-   Plug 'vim-pandoc/vim-pandoc'
    Plug 'junegunn/vim-peekaboo'
    Plug 'kana/vim-textobj-user'
    Plug 'kana/vim-textobj-line'
@@ -35,15 +25,12 @@
    Plug 'tpope/vim-endwise'
    Plug 'ap/vim-css-color'
    Plug 'morhetz/gruvbox'
-	 Plug 'vimwiki/vimwiki'
    call plug#end()
 endif
 
 filetype off                  " required
 filetype plugin on
 
-" a plugin where to add man page in window(can't get it to work)
-runtime! ftplugin/man.vim
 
 runtime! macros/matchit.vim
 
@@ -55,11 +42,6 @@ let g:ycm_show_diagnostics_ui = 0
 " like <leader>w saves the current file
 let mapleader = ","
 
-
-augroup pandoc_syntax
-    au! bufnewfile,buffilepre,bufread *.md set filetype=markdown.pandoc
-augroup END
-
 " sets vims local working directoy to home
 autocmd BufEnter * silent! lcd ~/
 
@@ -67,9 +49,6 @@ autocmd BufEnter * silent! lcd ~/
 " make vim faster
 set timeoutlen=1000
 set ttimeoutlen=0
-
-" start at last place you were editing
-au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " common word mistake snippets
 iabbrev rescources resources
@@ -79,7 +58,6 @@ iabbrev rescources resources
 autocmd vimleavepre *.rs !rustfmt                              %
 
 " if statement snippets
-
 augroup filetype_js
   autocmd!
   autocmd filetype javascript :iabbrev <buffer> iff if (){<CR>}<up><right><right><right>
@@ -105,11 +83,6 @@ iabbrev #! #!/bin/bash
 
 nnoremap <leader>c<leader> !!cal<cr>
 
-" gitgutter mappings
-nmap <leader>gh :diffget //3<cr>
-nmap <leader>gu :diffget //2<cr>
-nmap <leader>gs :g<cr>
-let g:gitgutter_enabled = 0
 
 " maps jk for easier escape
 inoremap jk <esc>
@@ -178,8 +151,6 @@ let nerdtreeminimalui = 1
 
 filetype plugin on
 
-au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => general
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -245,6 +216,7 @@ set path+=**
 
 " ignore compiled files
 set wildignore=*.o,*~,*.pyc
+
 if has("win16") || has("win32")
     set wildignore+=.git\*,.hg\*,.svn\*
 else
@@ -294,12 +266,6 @@ set visualbell
 set t_vb=
 set tm=500
 
-" properly disable sound on errors on macvim
-if has("gui_macvim")
-    autocmd guienter * set vb t_vb=
-endif
-
-
 " add a bit extra margin to the left
 set foldcolumn=1
 
@@ -310,13 +276,6 @@ set foldcolumn=1
 syntax enable
 syntax on
 
-" enable 256 colors palette in gnome terminal
-if $colorterm == 'gnome-terminal'
-    set t_co=256
-endif
-
-" airline theme
-let g:airline_theme='jellybeans'
 
 try
   colorscheme mybeans
@@ -325,15 +284,6 @@ endtry
 
 
 set background=dark
-
-
-" set extra options when running in gui mode
-if has("gui_running")
-    set guioptions-=t
-    set guioptions-=e
-    set t_co=256
-    "set guitablabel=%m\ %t
-endif
 
 " set utf8 as standard encoding and en_us as the standard language
 set encoding=utf8
@@ -427,8 +377,6 @@ try
 catch
 endtry
 
-" return to last edit position when opening files (you want this!)
-au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 """"""""""""""""""""""""""""""
 " => status line

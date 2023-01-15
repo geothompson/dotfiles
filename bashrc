@@ -66,6 +66,7 @@ export PATH=/usr/bin/lynx:$PATH
 export PATH=$HOME/.local/bin/:$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH=$HOME/repos/gitlab.com/snapplesacue/dotfiles/scripts/:$PATH
+export PATH=$HOME/gitlab/SnappleSauce/dotfiles/scripts/:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesacue/README/scripts/:$PATH
 export PATH=$HOME/repos/gitlab.com/snapplesacue/README/bash/:$PATH
 export PATH=$HOME/scripts:$PATH
