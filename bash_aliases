@@ -1,5 +1,6 @@
 unalias -a
 alias more='less'
+alias ocaml='rlwrap ocaml'
 alias less='less -R'
 alias ?='d'
 alias ??=googl

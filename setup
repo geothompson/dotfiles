@@ -1,6 +1,7 @@
 #!/bin/bash
 
-
+ln -sf $PWD/lambda-term-inputrc ~/.lambda-term-inputrc
+ls -l ~/.lambda-term-inputrc
 
 ln -sf $PWD/bashrc ~/.bashrc
 ls -l ~/.bashrc
