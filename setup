@@ -6,6 +6,10 @@ ls -l ~/.lambda-term-inputrc
 ln -sf $PWD/bashrc ~/.bashrc
 ls -l ~/.bashrc
 
+ln -sf $PWD/init.vim $HOME/.config/nvim/init.vim
+ls -l $HOME/.config/nvim/init.vim
+
+
 ln -sf $PWD/vimrc $HOME/.vimrc
 ls -l $HOME/.vimrc
 

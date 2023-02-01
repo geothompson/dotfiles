@@ -1,23 +1,55 @@
 
-let mapleader = ","
 
 call plug#begin(stdpath('config').'/plugged')
 
+Plug 'sirver/ultisnips'
 Plug 'morhetz/gruvbox'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'hrsh7th/nvim-cmp'
+
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
-" For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'lervag/vimtex'
+Plug 'preservim/nerdcommenter'
+
+""lua <<EOF
+"require'lspconfig'.ocaml-lsp-server.setup{}
+"EOF
+
+    
 
 call plug#end()
 
+let mapleader = ","
+
+
+" for vimtex
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+
+" for UltiSnips
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 set timeout timeoutlen=3000 ttimeoutlen=100
+
+"Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " remaps jk for an easier esc
 inoremap jk <esc>
@@ -34,6 +66,10 @@ nnoremap <leader>d yyp
 "move highlighted section up or down
 vnoremap J :m '>+1<cr>gv=gv
 vnoremap K :m '<-2<cr>gv=gv
+
+
+" for merlin(OCaml)
+:set rtp+=<SHARE_DIR>/merlin/vim
 
 
 "----------insert mode remaps------------------------

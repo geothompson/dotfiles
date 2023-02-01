@@ -1,4 +1,4 @@
 [read-line]
 C-h: complete-bar-prev
 C-l: complete-bar-next
-C-j: complete-bar
+C-f: complete-bar 
