@@ -1,16 +1,17 @@
 #!/bin/bash
 
-cd_to_script () {
-  cd $modified_path
 
-}
 
+# check if script in path
 if [[ -z $(which $1) ]]; then
   echo "not a script on the path"
   exit 1
 else
+  # locates path and truncates script name
   script_path=$(which $1)
   modified_path=${script_path%%\/\/*}
-  echo $modified_path
+
+  # changes to directory containing script
+  cd $modified_path
 fi
 

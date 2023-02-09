@@ -2,8 +2,13 @@
 
 # credit to rwxrob
 
-cheat() {
+#cheat() {
+  #q="${@:2}"
+  ##echo ${q// //}
+  #curl cht.sh/$1/${q// /+}
+#}
+
   q="${@:2}"
-  curl cht.sh/$1/${q// /+}
-}
+  echo "cht.sh/$1/${q// /+}"
+  curl cht.sh/$1${q// /+} 
 
