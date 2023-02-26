@@ -1,4 +1,6 @@
 
+# credti wrxrob
+
 ########################## Terminal ANSI Escapes #########################
 
 alias fixstty='stty sane'

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 # check if script in path
 if [[ -z $(which $1) ]]; then
   echo "not a script on the path"
@@ -11,7 +9,8 @@ else
   script_path=$(which $1)
   modified_path=${script_path%%\/\/*}
 
+  echo "$modified_path"
   # changes to directory containing script
-  cd $modified_path
+  cd "$modified_path"
 fi
 

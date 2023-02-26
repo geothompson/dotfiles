@@ -4,4 +4,4 @@ declare -i r=$((RANDOM%256))
 declare -i g=$((RANDOM%256))
 declare -i b=$((RANDOM%256))
 
-echo -e $"\033[38;2;$r;$g;${b}m"
+echo -e $"\033[38;2;$r;$g;${b}mdfsfd"
