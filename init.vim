@@ -15,7 +15,6 @@ Plug 'lervag/vimtex'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'folke/which-key.nvim'
 
-
 " for telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -62,16 +61,7 @@ vim.wo.signcolumn= 'yes'
 vim.o.breakindent = true
 vim.o.undofile = true
 vim.o.completeopt = 'menuone,noselect'
-vim.o.termguicolors = true
 
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-})
 
 
 require("mason").setup()
@@ -219,6 +209,7 @@ local servers = {
   pyright = {},
   ocamllsp = {},
   grammarly = {},
+  asm_lsp = {},
 
   lua_ls = {
     Lua = {
@@ -309,9 +300,9 @@ let clipboard = 'unmamedplus'
 
 
 
-
 let g:cpp_simple_highlight = 1
 
+" vimtex related 
 let g:tex_flavor= 'latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
@@ -351,7 +342,7 @@ vnoremap K :m '<-2<cr>gv=gv
 
 :set t_BE=
 
-"----------insert mode remaps------------------------
+"----------key remaps------------------------
 
 "quick movements
 inoremap II <esc>I
@@ -363,6 +354,11 @@ inoremap CC <esc>c
 inoremap SS <esc>s
 inoremap DD <esc>dd
 inoremap UU <esc>u
+
+
+" -- copies func into system clipboard  : asbjornHaland
+nnoremap <leader>y, [["+y]]
+vnoremap <leader>y, [["+y]]
 
 "moves cursor back one space in insert mode
 inoremap <c-h> <esc>i
@@ -379,6 +375,7 @@ set scrolloff=999
 
 "prevents truncated yanks, deletes, ect....
 set viminfo='20,<1000,s100
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => general
@@ -553,7 +550,6 @@ let g:airline_symbols.notexists = '∄'
 let g:airline_symbols.whitespace = 'Ξ'
 
 
-
 " delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
     let save_cursor = getpos(".")
@@ -588,6 +584,57 @@ function! PythonRunInScratch()
 
 endfunction
 
+
+" allows clipboard use on wsl
+let g:clipboard = {
+            \   'name': 'WslClipboard',
+            \   'copy': {
+            \      '+': 'clip.exe',
+            \      '*': 'clip.exe',
+            \    },
+            \   'paste': {
+            \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+            \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+            \   },
+            \   'cache_enabled': 0,
+            \ }
+" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
+let s:opam_share_dir = system("opam config var share")
+let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+
+let s:opam_configuration = {}
+
+function! OpamConfOcpIndent()
+  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+endfunction
+let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+
+function! OpamConfOcpIndex()
+  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+endfunction
+let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+
+function! OpamConfMerlin()
+  let l:dir = s:opam_share_dir . "/merlin/vim"
+  execute "set rtp+=" . l:dir
+endfunction
+let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+
+let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+for tool in s:opam_packages
+  " Respect package order (merlin should be after ocp-index)
+  if count(s:opam_available_tools, tool) > 0
+    call s:opam_configuration[tool]()
+  endif
+endfor
+" ## end of OPAM user-setup addition for vim / base ## keep this line
+" ## added by OPAM user-setup for vim / ocp-indent ## 5134e87043acfecad68b5e82014c1f1b ## you can edit, but keep this line
+if count(s:opam_available_tools,"ocp-indent") == 0
+  source "/root/.opam/default/share/ocp-indent/vim/indent/ocaml.vim"
+endif
+" ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
 
 
 

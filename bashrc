@@ -77,8 +77,7 @@ export DENO_INSTALL="/home/geo_thom/.deno"
 
  #function to open programs in vim even if you don't know the path
 vic () {
-
-  vim $(which $1)
+  vi $(which $1)
 }
 
 
@@ -164,3 +163,7 @@ export LS_COLOR
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 export LIBGL_ALWAYS_INIRECT=1
 export RUNLEVEL=3
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

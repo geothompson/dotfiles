@@ -1,0 +1,29 @@
+#!/bin/bash
+#ssh into umn machines
+
+
+if [[ -z "$1" ]];
+then
+  read -p "input umn machine: " machine
+else
+      case $1 in
+       -w | --walter)       machine="csel-wb28-$2"
+                            ;;
+       -l | --lind)         machine="csel-lind40-$2"
+                            ;;
+       -lo | --login)       machine="login$2"
+                            ;;
+       -k | --keller)       machine="csel-kh1250-$2"
+                            ;;
+       -at | --atlas)       machine="csel-atlas"
+                            ;;
+       -ap | --apollo)       machine="csel-apollo"
+                            ;;
+                          *)                   echo "usage: -(w,l,k,at,ap) machine_num "
+                            exit 1 
+      esac
+  fi 
+
+echo "ssh thom7918@$machine.cselabs.umn.edu"
+ssh thom7918@$machine.cselabs.umn.edu
+

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# opens browns x64 cheatsheet in a SumatraPDF window
+
+/mnt/c/Users/geoth/AppData/Local/SumatraPDF/SumatraPDF.exe C:\\Users\\geoth\\Downloads\\x64_cheatsheet.PDF
